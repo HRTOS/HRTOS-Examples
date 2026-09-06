@@ -1,0 +1,444 @@
+; .\Objects\HRTOS_InterruptNesting.SRC generated from: ..\Src\HRTOS_InterruptNesting.c
+; COMPILER INVOKED BY:
+;        D:\Keil_v5\C51\BIN\C51.EXE ..\Src\HRTOS_InterruptNesting.c LARGE OPTIMIZE(0,SPEED) BROWSE MODDP2 INCDIR(..\..\INC) DEBUG OBJECTEXTEND PRINT(.\Listings\HRTOS_InterruptNesting.lst) SRC(.\Objects\HRTOS_InterruptNesting.SRC)
+
+$NOMOD51
+
+NAME	HRTOS_INTERRUPTNESTING
+
+P0	DATA	080H
+P1	DATA	090H
+P2	DATA	0A0H
+P3	DATA	0B0H
+T0	BIT	0B0H.4
+AC	BIT	0D0H.6
+T1	BIT	0B0H.5
+T2	BIT	090H.0
+EA	BIT	0A8H.7
+IE	DATA	0A8H
+EXF2	BIT	0C8H.6
+RD	BIT	0B0H.7
+ES	BIT	0A8H.4
+IP	DATA	0B8H
+RI	BIT	098H.0
+INT0	BIT	0B0H.2
+CY	BIT	0D0H.7
+TI	BIT	098H.1
+INT1	BIT	0B0H.3
+RCAP2H	DATA	0CBH
+PS	BIT	0B8H.4
+SP	DATA	081H
+T2EX	BIT	090H.1
+OV	BIT	0D0H.2
+RCAP2L	DATA	0CAH
+C_T2	BIT	0C8H.1
+WR	BIT	0B0H.6
+RCLK	BIT	0C8H.5
+TCLK	BIT	0C8H.4
+SBUF	DATA	099H
+PCON	DATA	087H
+SCON	DATA	098H
+TMOD	DATA	089H
+TCON	DATA	088H
+LED_T1	BIT	090H.2
+IE0	BIT	088H.1
+IE1	BIT	088H.3
+B	DATA	0F0H
+CP_RL2	BIT	0C8H.0
+ACC	DATA	0E0H
+ET0	BIT	0A8H.1
+ET1	BIT	0A8H.3
+TF0	BIT	088H.5
+ET2	BIT	0A8H.5
+TF1	BIT	088H.7
+TF2	BIT	0C8H.7
+RB8	BIT	098H.2
+TH0	DATA	08CH
+EX0	BIT	0A8H.0
+IT0	BIT	088H.0
+TH1	DATA	08DH
+TB8	BIT	098H.3
+EX1	BIT	0A8H.2
+IT1	BIT	088H.2
+TH2	DATA	0CDH
+P	BIT	0D0H.0
+SM0	BIT	098H.7
+TL0	DATA	08AH
+SM1	BIT	098H.6
+TL1	DATA	08BH
+SM2	BIT	098H.5
+TL2	DATA	0CCH
+PT0	BIT	0B8H.1
+PT1	BIT	0B8H.3
+RS0	BIT	0D0H.3
+PT2	BIT	0B8H.5
+TR0	BIT	088H.4
+RS1	BIT	0D0H.4
+TR1	BIT	088H.6
+TR2	BIT	0C8H.2
+PX0	BIT	0B8H.0
+PX1	BIT	0B8H.2
+DPH	DATA	083H
+DPL	DATA	082H
+EXEN2	BIT	0C8H.3
+REN	BIT	098H.4
+T2CON	DATA	0C8H
+RXD	BIT	0B0H.0
+TXD	BIT	0B0H.1
+F0	BIT	0D0H.5
+LED_A	BIT	090H.0
+LED_B	BIT	090H.1
+PSW	DATA	0D0H
+?PR?task_a?HRTOS_INTERRUPTNESTING        SEGMENT CODE 
+?PR?task_b?HRTOS_INTERRUPTNESTING        SEGMENT CODE 
+?PR?Timer1_Init?HRTOS_INTERRUPTNESTING   SEGMENT CODE 
+?PR?t1_isr?HRTOS_INTERRUPTNESTING        SEGMENT CODE 
+?PR?hrtos_main?HRTOS_INTERRUPTNESTING    SEGMENT CODE 
+?C_INITSEG           SEGMENT CODE 
+?XD?HRTOS_INTERRUPTNESTING               SEGMENT XDATA 
+	EXTRN	CODE (_os_task_create)
+	EXTRN	XDATA (?_os_task_create?BYTE)
+	EXTRN	CODE (os_interrupt_exit)
+	EXTRN	CODE (_os_delay)
+	PUBLIC	hrtos_main
+	PUBLIC	Timer1_Init
+
+	RSEG  ?XD?HRTOS_INTERRUPTNESTING
+       count_t1:   DS   2
+        count_a:   DS   2
+        count_b:   DS   2
+
+	RSEG  ?C_INITSEG
+	DB	042H
+	DW	count_a
+	DW	00000H
+
+	DB	042H
+	DW	count_b
+	DW	00000H
+
+	DB	042H
+	DW	count_t1
+	DW	00000H
+
+; #include "hrtos.h"
+; 
+; /*==================== 配置 ====================*/
+; #define TASK_A        1
+; #define TASK_B        2
+; 
+; #define TASK_T1       0
+; 
+; #define PRIO_TASK     4
+; #define PRIO_T1       9
+; #define PRIO_T1_NEST  10
+; 
+; #define STACK_TASK_A  5
+; #define STACK_TASK_B  5
+; #define STACK_T1      0
+; 
+; #define TICK_TASK     20
+; 
+; /*==================== LED 定义 ====================*/
+; sbit LED_A = P1^0;   /* 任务A指示灯 */
+; sbit LED_B = P1^1;   /* 任务B指示灯 */
+; sbit LED_T1 = P1^2;  /* T1中断指示灯 */
+; 
+; /*==================== 全局 ====================*/
+; static u16 count_a = 0;
+; static u16 count_b = 0;
+; static u16 xdata count_t1 = 0;
+; 
+; /*==================== 普通任务A ====================*/
+; static void task_a(void)
+
+	RSEG  ?PR?task_a?HRTOS_INTERRUPTNESTING
+task_a:
+	USING	0
+			; SOURCE LINE # 30
+; {
+			; SOURCE LINE # 31
+;     LED_A = 1;
+			; SOURCE LINE # 32
+	SETB 	LED_A
+?C0001:
+; 
+;     while (1)
+			; SOURCE LINE # 34
+;     {
+			; SOURCE LINE # 35
+;         count_a++;
+			; SOURCE LINE # 36
+	MOV  	DPTR,#count_a+01H
+	MOVX 	A,@DPTR
+	INC  	A
+	MOVX 	@DPTR,A
+	JNZ  	?C0016
+	MOV  	DPTR,#count_a
+	MOVX 	A,@DPTR
+	INC  	A
+	MOVX 	@DPTR,A
+?C0016:
+; 
+;         LED_A = ~LED_A;
+			; SOURCE LINE # 38
+	CPL  	LED_A
+; 
+;         os_delay(TICK_TASK);
+			; SOURCE LINE # 40
+	MOV  	R7,#014H
+	MOV  	R6,#00H
+	LCALL	_os_delay
+;     }
+			; SOURCE LINE # 41
+	SJMP 	?C0001
+	RET  	
+; END OF task_a
+
+; }
+; 
+; /*==================== 普通任务B ====================*/
+; static void task_b(void)
+
+	RSEG  ?PR?task_b?HRTOS_INTERRUPTNESTING
+task_b:
+	USING	0
+			; SOURCE LINE # 45
+; {
+			; SOURCE LINE # 46
+;     LED_B = 1;
+			; SOURCE LINE # 47
+	SETB 	LED_B
+?C0004:
+; 
+;     while (1)
+			; SOURCE LINE # 49
+;     {
+			; SOURCE LINE # 50
+;         count_b++;
+			; SOURCE LINE # 51
+	MOV  	DPTR,#count_b+01H
+	MOVX 	A,@DPTR
+	INC  	A
+	MOVX 	@DPTR,A
+	JNZ  	?C0017
+	MOV  	DPTR,#count_b
+	MOVX 	A,@DPTR
+	INC  	A
+	MOVX 	@DPTR,A
+?C0017:
+; 
+;         LED_B = ~LED_B;
+			; SOURCE LINE # 53
+	CPL  	LED_B
+; 
+;         os_delay(TICK_TASK);
+			; SOURCE LINE # 55
+	MOV  	R7,#014H
+	MOV  	R6,#00H
+	LCALL	_os_delay
+;     }
+			; SOURCE LINE # 56
+	SJMP 	?C0004
+	RET  	
+; END OF task_b
+
+; }
+; 
+; void Timer1_Init(void)
+
+	RSEG  ?PR?Timer1_Init?HRTOS_INTERRUPTNESTING
+Timer1_Init:
+			; SOURCE LINE # 59
+; {
+			; SOURCE LINE # 60
+;     TMOD &= 0x0F;
+			; SOURCE LINE # 61
+	ANL  	TMOD,#0FH
+;     TMOD |= 0x10;     // T1模式1
+			; SOURCE LINE # 62
+	ORL  	TMOD,#010H
+; 
+;     TH1 = 0xFC;
+			; SOURCE LINE # 64
+	MOV  	TH1,#0FCH
+;     TL1 = 0x18;       // 12MHz 1ms
+			; SOURCE LINE # 65
+	MOV  	TL1,#018H
+; 
+;     TF1 = 0;
+			; SOURCE LINE # 67
+	CLR  	TF1
+;     ET1 = 1;
+			; SOURCE LINE # 68
+	SETB 	ET1
+;     PT1 = 1;          // T1高优先级
+			; SOURCE LINE # 69
+	SETB 	PT1
+;     TR1 = 1;
+			; SOURCE LINE # 70
+	SETB 	TR1
+; }
+			; SOURCE LINE # 71
+	RET  	
+; END OF Timer1_Init
+
+; 
+; /*==================== T1中断处理 ====================*/
+; static void t1_isr(void)
+
+	RSEG  ?PR?t1_isr?HRTOS_INTERRUPTNESTING
+t1_isr:
+	USING	0
+			; SOURCE LINE # 74
+; {
+			; SOURCE LINE # 75
+;     count_t1++;
+			; SOURCE LINE # 76
+	MOV  	DPTR,#count_t1+01H
+	MOVX 	A,@DPTR
+	INC  	A
+	MOVX 	@DPTR,A
+	JNZ  	?C0018
+	MOV  	DPTR,#count_t1
+	MOVX 	A,@DPTR
+	INC  	A
+	MOVX 	@DPTR,A
+?C0018:
+; 	
+; 	TH1 = 0xFC;
+			; SOURCE LINE # 78
+	MOV  	TH1,#0FCH
+;     TL1 = 0x18;       // 12MHz 1ms
+			; SOURCE LINE # 79
+	MOV  	TL1,#018H
+; 
+;     /*
+;      * T1进入中断
+;      */
+;     LED_T1 = ~LED_T1;
+			; SOURCE LINE # 84
+	CPL  	LED_T1
+; 
+;     /*
+;      * 中断处理完成
+;      */
+;     os_interrupt_exit();
+			; SOURCE LINE # 89
+	LCALL	os_interrupt_exit
+; }
+			; SOURCE LINE # 90
+	RET  	
+; END OF t1_isr
+
+; 
+; /*==================== 系统入口 ====================*/
+; void hrtos_main(void)
+
+	RSEG  ?PR?hrtos_main?HRTOS_INTERRUPTNESTING
+hrtos_main:
+	USING	0
+			; SOURCE LINE # 93
+; {
+			; SOURCE LINE # 94
+; 
+;     Timer1_Init();
+			; SOURCE LINE # 96
+	LCALL	Timer1_Init
+; 	
+; 	/*
+;      * 两个同优先级普通任务
+;      */
+;     if (os_task_create(task_a, TASK_A, PRIO_TASK, STACK_TASK_A) != 1)
+			; SOURCE LINE # 101
+	MOV  	R3,#0FFH
+	MOV  	R2,#HIGH (task_a)
+	MOV  	R1,#LOW (task_a)
+	MOV  	R6,AR2
+	MOV  	R7,AR1
+	MOV  	DPTR,#?_os_task_create?BYTE+04H
+	MOV  	A,#05H
+	MOVX 	@DPTR,A
+	MOV  	R3,#04H
+	MOV  	R5,#01H
+	LCALL	_os_task_create
+	MOV  	A,R7
+	XRL  	A,#01H
+	JZ   	?C0009
+;     {
+			; SOURCE LINE # 102
+?C0010:
+;         while (1);
+			; SOURCE LINE # 103
+	SJMP 	?C0010
+;     }
+			; SOURCE LINE # 104
+?C0009:
+; 
+;     if (os_task_create(task_b, TASK_B, PRIO_TASK, STACK_TASK_B) != 1)
+			; SOURCE LINE # 106
+	MOV  	R3,#0FFH
+	MOV  	R2,#HIGH (task_b)
+	MOV  	R1,#LOW (task_b)
+	MOV  	R6,AR2
+	MOV  	R7,AR1
+	MOV  	DPTR,#?_os_task_create?BYTE+04H
+	MOV  	A,#05H
+	MOVX 	@DPTR,A
+	MOV  	R3,#04H
+	MOV  	R5,#02H
+	LCALL	_os_task_create
+	MOV  	A,R7
+	XRL  	A,#01H
+	JZ   	?C0012
+;     {
+			; SOURCE LINE # 107
+?C0013:
+;         while (1);
+			; SOURCE LINE # 108
+	SJMP 	?C0013
+;     }
+			; SOURCE LINE # 109
+?C0012:
+; 
+;     /*
+;      * T1普通中断任务
+;      * 优先级9
+;      */
+;     os_task_create((unsigned int)t1_isr, TASK_T1, PRIO_T1, STACK_T1);
+			; SOURCE LINE # 115
+	MOV  	R3,#0FFH
+	MOV  	R2,#HIGH (t1_isr)
+	MOV  	R1,#LOW (t1_isr)
+	MOV  	R6,AR2
+	MOV  	R7,AR1
+	MOV  	DPTR,#?_os_task_create?BYTE+04H
+	CLR  	A
+	MOVX 	@DPTR,A
+	MOV  	R3,#09H
+	MOV  	R5,A
+	LCALL	_os_task_create
+; 
+;     /*
+;      * T1嵌套中断任务
+;      * 优先级10
+;      */
+;     os_task_create((unsigned int)t1_isr, TASK_T1, PRIO_T1_NEST, STACK_T1);
+			; SOURCE LINE # 121
+	MOV  	R3,#0FFH
+	MOV  	R2,#HIGH (t1_isr)
+	MOV  	R1,#LOW (t1_isr)
+	MOV  	R6,AR2
+	MOV  	R7,AR1
+	MOV  	DPTR,#?_os_task_create?BYTE+04H
+	CLR  	A
+	MOVX 	@DPTR,A
+	MOV  	R3,#0AH
+	MOV  	R5,A
+	LCALL	_os_task_create
+; 
+; }			; SOURCE LINE # 123
+	RET  	
+; END OF hrtos_main
+
+	END

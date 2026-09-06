@@ -1,0 +1,85 @@
+C51 COMPILER V9.60.7.0   DS1302_SET_TIME                                                   09/06/2026 11:58:07 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE DS1302_SET_TIME
+OBJECT MODULE PLACED IN .\Objects\ds1302_set_time.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\03_Sensor\DS1302\ds1302_set_time.c LARGE OPTIMIZE(0,SPEED) INC
+                    -DIR(..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\ds1302_set_time.lst) OBJECT(.\Objects\ds1302_s
+                    -et_time.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          
+   4          /*------------------------------------------------
+   5           * 设置DS1302时间
+   6           *
+   7           * time[0]：秒
+   8           * time[1]：分
+   9           * time[2]：时
+  10           * time[3]：日
+  11           * time[4]：月
+  12           * time[5]：星期
+  13           * time[6]：年
+  14           *
+  15           * 数据必须采用BCD格式。
+  16           *------------------------------------------------*/
+  17          void drv_ds1302_set_time(unsigned char *time)
+  18          {
+  19   1          unsigned char i;
+  20   1          unsigned char ea_state;
+  21   1      
+  22   1      
+  23   1          /* 保存当前中断状态 */
+  24   1          ea_state = EA;
+  25   1      
+  26   1          /* 保护DS1302连续写入时序 */
+  27   1          EA = 0;
+  28   1      
+  29   1      
+  30   1          /*------------------------------------------------
+  31   1           * 关闭写保护
+  32   1           *------------------------------------------------*/
+  33   1          drv_ds1302_write_byte(0x8E, 0x00);
+  34   1      
+  35   1      
+  36   1          /*------------------------------------------------
+  37   1           * 写入7个时间寄存器
+  38   1           *
+  39   1           * 秒、分、时、日、月、星期、年
+  40   1           *------------------------------------------------*/
+  41   1          for(i = 0; i < 7; i++)
+  42   1          {
+  43   2              drv_ds1302_write_byte(
+  44   2                  drv_ds1302_write_addr[i],
+  45   2                  time[i]
+  46   2              );
+  47   2          }
+  48   1      
+  49   1      
+  50   1          /*------------------------------------------------
+  51   1           * 重新开启写保护
+  52   1           *------------------------------------------------*/
+  53   1          drv_ds1302_write_byte(0x8E, 0x80);
+C51 COMPILER V9.60.7.0   DS1302_SET_TIME                                                   09/06/2026 11:58:07 PAGE 2   
+
+  54   1      
+  55   1      
+  56   1          /* 恢复原来的中断状态 */
+  57   1          EA = ea_state;
+  58   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    101    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      5    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

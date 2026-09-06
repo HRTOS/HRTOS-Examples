@@ -1,0 +1,46 @@
+C51 COMPILER V9.60.7.0   XPT2046_SPI_WRITE                                                 09/06/2026 11:04:26 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE XPT2046_SPI_WRITE
+OBJECT MODULE PLACED IN .\Objects\xpt2046_spi_write.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\03_Sensor\光敏\xpt2046_spi_write.c LARGE OPTIMIZE(0,SPEED) INC
+                    -DIR(..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\xpt2046_spi_write.lst) OBJECT(.\Objects\xpt204
+                    -6_spi_write.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          
+   4          /*------------------------------------------------
+   5           * XPT2046 SPI写一个字节
+   6           *------------------------------------------------*/
+   7          void drv_xpt2046_spi_write(unsigned char _data)
+   8          {
+   9   1          unsigned char i;
+  10   1      
+  11   1          XPT2046_CLK = 0;
+  12   1      
+  13   1          for(i = 0; i < 8; i++)
+  14   1          {
+  15   2              XPT2046_DIN = _data >> 7;
+  16   2              _data <<= 1;
+  17   2      
+  18   2              XPT2046_CLK = 0;
+  19   2              XPT2046_CLK = 1;
+  20   2          }
+  21   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     53    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      2    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

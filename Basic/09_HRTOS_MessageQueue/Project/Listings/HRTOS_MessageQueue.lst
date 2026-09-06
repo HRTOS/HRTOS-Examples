@@ -1,0 +1,120 @@
+C51 COMPILER V9.60.7.0   HRTOS_MESSAGEQUEUE                                                08/20/2026 20:50:28 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE HRTOS_MESSAGEQUEUE
+OBJECT MODULE PLACED IN .\Objects\HRTOS_MessageQueue.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\Src\HRTOS_MessageQueue.c LARGE OPTIMIZE(8,SPEED) BROWSE MODDP2 INCDIR
+                    -(..\..\INC) DEBUG OBJECTEXTEND PRINT(.\Listings\HRTOS_MessageQueue.lst) OBJECT(.\Objects\HRTOS_MessageQueue.obj)
+
+line level    source
+
+   1          #include "hrtos.h"
+   2          
+   3          /*==================== 配置 ====================*/
+   4          #define TASK_RECV     1
+   5          #define TASK_SEND     2
+   6          
+   7          #define PRIO_RECV     5
+   8          #define PRIO_SEND     4
+   9          
+  10          #define STACK_RECV    5
+  11          #define STACK_SEND    5
+  12          
+  13          #define MSGQ_SIZE     8
+  14          
+  15          #define TICK_RECV     20
+  16          #define TICK_SEND     50
+  17          
+  18          /*==================== LED 定义 ====================*/
+  19          sbit LED_RECV = P1^0;   /* 接收任务指示灯 */
+  20          sbit LED_SEND = P1^1;   /* 发送任务指示灯 */
+  21          
+  22          /*==================== 全局 ====================*/
+  23          static os_msgq_t msgq;
+  24          static u8 msgq_buffer[MSGQ_SIZE];
+  25          
+  26          static u8 send_count = 0;
+  27          static u8 recv_count = 0;
+  28          
+  29          /*==================== 接收任务 ====================*/
+  30          static void recv_task(void)
+  31          {
+  32   1          u8 _data;
+  33   1      
+  34   1          LED_RECV = 1;
+  35   1      
+  36   1          while (1)
+  37   1          {
+  38   2              /*
+  39   2               * 从消息队列接收数据
+  40   2               * 非阻塞模式
+  41   2               */
+  42   2              if (os_msgq_recv(&msgq, 0, &_data, 1) == 1)
+  43   2              {
+  44   3                  recv_count++;
+  45   3      
+  46   3                  /* 接收成功 → 翻转LED */
+  47   3                  LED_RECV = ~LED_RECV;
+  48   3              }
+  49   2      
+  50   2              os_delay(TICK_RECV);
+  51   2          }
+  52   1      }
+  53          
+  54          /*==================== 发送任务 ====================*/
+C51 COMPILER V9.60.7.0   HRTOS_MESSAGEQUEUE                                                08/20/2026 20:50:28 PAGE 2   
+
+  55          static void send_task(void)
+  56          {
+  57   1          LED_SEND = 1;
+  58   1      
+  59   1          while (1)
+  60   1          {
+  61   2              send_count++;
+  62   2      
+  63   2              /*
+  64   2               * 向消息队列发送1字节数据
+  65   2               */
+  66   2              if (os_msgq_send(&msgq, 0, send_count, 1) == 1)
+  67   2              {
+  68   3                  /* 发送成功 → 翻转LED */
+  69   3                  LED_SEND = ~LED_SEND;
+  70   3              }
+  71   2      
+  72   2              os_delay(TICK_SEND);
+  73   2          }
+  74   1      }
+  75          
+  76          /*==================== 系统入口 ====================*/
+  77          void hrtos_main(void)
+  78          {
+  79   1          /*
+  80   1           * 初始化消息队列
+  81   1           * 将消息队列对象与缓冲区绑定
+  82   1           */
+  83   1          os_msgq_init(&msgq, msgq_buffer, MSGQ_SIZE);
+  84   1      
+  85   1          if (os_task_create(recv_task, TASK_RECV, PRIO_RECV, STACK_RECV) != 1)
+  86   1          {
+  87   2              while (1);
+  88   2          }
+  89   1      
+  90   1          if (os_task_create(send_task, TASK_SEND, PRIO_SEND, STACK_SEND) != 1)
+  91   1          {
+  92   2              while (1);
+  93   2          }
+  94   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    167    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =     17       1
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

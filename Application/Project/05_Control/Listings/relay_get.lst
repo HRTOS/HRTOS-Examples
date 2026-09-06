@@ -1,0 +1,37 @@
+C51 COMPILER V9.60.7.0   RELAY_GET                                                         09/05/2026 09:18:29 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE RELAY_GET
+OBJECT MODULE PLACED IN .\Objects\relay_get.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\05_Control\Relay\relay_get.c LARGE OPTIMIZE(0,SPEED) INCDIR(..
+                    -\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\relay_get.lst) OBJECT(.\Objects\relay_get.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          
+   4          /*
+   5           * 函数名：drv_relay_get
+   6           *
+   7           * 功能：
+   8           *      获取当前继电器状态。
+   9           */
+  10          u8 drv_relay_get(void)
+  11          {
+  12   1          return relay_state;
+  13   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =      6    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

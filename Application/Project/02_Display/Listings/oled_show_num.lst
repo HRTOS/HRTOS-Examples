@@ -1,0 +1,80 @@
+C51 COMPILER V9.60.7.0   OLED_SHOW_NUM                                                     08/28/2026 20:45:45 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE OLED_SHOW_NUM
+OBJECT MODULE PLACED IN .\Objects\oled_show_num.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\02_Display\OLED\oled_show_num.c LARGE OPTIMIZE(0,SPEED) INCDIR
+                    -(..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\oled_show_num.lst) OBJECT(.\Objects\oled_show_num
+                    -.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          
+   4          /*------------------------------------------------
+   5           * OLED显示整数
+   6           *
+   7           * num：0~4294967295
+   8           * len：显示位数
+   9           * size：字体大小
+  10           *------------------------------------------------*/
+  11          void drv_oled_show_num(unsigned char x,
+  12                                 unsigned char y,
+  13                                 unsigned long num,
+  14                                 unsigned char len,
+  15                                 unsigned char size)
+  16          {
+  17   1          unsigned char t;
+  18   1          unsigned char temp;
+  19   1          unsigned char enshow;
+  20   1      
+  21   1          enshow = 0;
+  22   1      
+  23   1          for(t = 0; t < len; t++)
+  24   1          {
+  25   2              temp = (num / drv_oled_pow(10, len - t - 1)) % 10;
+  26   2      
+  27   2              if(enshow == 0 && t < (len - 1))
+  28   2              {
+  29   3                  if(temp == 0)
+  30   3                  {
+  31   4                      drv_oled_show_char(
+  32   4                          x + (size / 2) * t,
+  33   4                          y,
+  34   4                          ' ',
+  35   4                          size
+  36   4                      );
+  37   4      
+  38   4                      continue;
+  39   4                  }
+  40   3                  else
+  41   3                  {
+  42   4                      enshow = 1;
+  43   4                  }
+  44   3              }
+  45   2      
+  46   2              drv_oled_show_char(
+  47   2                  x + (size / 2) * t,
+  48   2                  y,
+  49   2                  temp + '0',
+  50   2                  size
+  51   2              );
+  52   2          }
+  53   1      }
+C51 COMPILER V9.60.7.0   OLED_SHOW_NUM                                                     08/28/2026 20:45:45 PAGE 2   
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    231    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =     11    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

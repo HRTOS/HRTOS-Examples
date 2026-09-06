@@ -1,0 +1,82 @@
+C51 COMPILER V9.60.7.0   ADC_GET_VALUE                                                     09/06/2026 11:58:05 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE ADC_GET_VALUE
+OBJECT MODULE PLACED IN .\Objects\adc_get_value.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\03_Sensor\ADC\adc_get_value.c LARGE OPTIMIZE(0,SPEED) INCDIR(.
+                    -.\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\adc_get_value.lst) OBJECT(.\Objects\adc_get_value.o
+                    -bj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          /* ADC结果低2位寄存器 */
+   4          sfr ADC_RESL = 0xBE;
+   5          
+   6          /*------------------------------------------------
+   7           * 函数名：drv_adc_get_value
+   8           * 功能  ：读取指定ADC通道
+   9           * 输入  ：channel - ADC通道号
+  10           * 返回  ：10位ADC转换结果
+  11           *         范围：0~1023
+  12           *------------------------------------------------*/
+  13          u16 drv_adc_get_value(u8 channel)
+  14          {
+  15   1          u16 value;
+  16   1          u8 i;
+  17   1      
+  18   1          /* ADC通道范围限制 */
+  19   1          if (channel > ADC_CH7)
+  20   1          {
+  21   2              return 0;
+  22   2          }
+  23   1      
+  24   1          /* 设置P1.0~P1.7为模拟输入 */
+  25   1          P1ASF = 0xFF;
+  26   1      
+  27   1          /* 清空ADC结果寄存器 */
+  28   1          ADC_RES  = 0;
+  29   1          ADC_RESL = 0;
+  30   1      
+  31   1          /* ADC速度及通道配置 */
+  32   1          ADC_CONTR = 0x80 | 0x08 | 0x20 | channel;
+  33   1      
+  34   1          /* 等待ADC输入稳定 */
+  35   1          i = 20;
+  36   1      
+  37   1          while (i--)
+  38   1          {
+  39   2              ;
+  40   2          }
+  41   1      
+  42   1          /* 等待转换完成 */
+  43   1          while (!(ADC_CONTR & 0x10))
+  44   1          {
+  45   2              ;
+  46   2          }
+  47   1      
+  48   1          /* 清除ADC完成标志 */
+  49   1          ADC_CONTR &= 0xF7;
+  50   1      
+  51   1          /* 获取10位ADC转换结果 */
+  52   1          value = ADC_RES * 4 + ADC_RESL;
+  53   1      
+C51 COMPILER V9.60.7.0   ADC_GET_VALUE                                                     09/06/2026 11:58:05 PAGE 2   
+
+  54   1          return value;
+  55   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     94    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      4    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

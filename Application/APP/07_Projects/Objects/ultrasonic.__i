@@ -1,0 +1,1 @@
+"..\03_Sensor\ultrasonic.c" LARGE OPTIMIZE (0,SPEED) BROWSE MODDP2 INCDIR(..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\ultrasonic.lst) OBJECT(.\Objects\ultrasonic.obj)

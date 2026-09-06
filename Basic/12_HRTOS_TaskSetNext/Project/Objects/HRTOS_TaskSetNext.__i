@@ -1,0 +1,1 @@
+"..\Src\HRTOS_TaskSetNext.c" LARGE OPTIMIZE (0,SPEED) BROWSE MODDP2 INCDIR(..\..\INC) DEBUG OBJECTEXTEND PRINT(.\Listings\HRTOS_TaskSetNext.lst) OBJECT(.\Objects\HRTOS_TaskSetNext.obj)

@@ -1,0 +1,43 @@
+C51 COMPILER V9.60.7.0   I2C_DELAY                                                         09/06/2026 16:57:17 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE I2C_DELAY
+OBJECT MODULE PLACED IN .\Objects\i2c_delay.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\06_Storage\EEPROM\EEPROM-IIC\i2c_delay.c LARGE OPTIMIZE(0,SPEE
+                    -D) INCDIR(..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\i2c_delay.lst) OBJECT(.\Objects\i2c_dela
+                    -y.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          
+   4          /*******************************************************************************
+   5           * 函 数 名 : eeprom_delay
+   6           * 功能描述 : I2C 时序延时
+   7           * 输    入 : 无
+   8           * 输    出 : 无
+   9           ******************************************************************************/
+  10          void eeprom_delay(void)
+  11          {
+  12   1          unsigned char i;
+  13   1      
+  14   1          for (i = 0; i < 2; i++)
+  15   1          {
+  16   2              _nop_();
+  17   2          }
+  18   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     22    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      1    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

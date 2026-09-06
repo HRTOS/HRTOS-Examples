@@ -1,0 +1,259 @@
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    08/21/2026  23:21:12  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
+D:\KEIL_V5\C51\BIN\BL51.EXE ..\..\..\..\Kernel\Project\Objects\HRTOS.LIB, .\Objects\HRTOS_FastTask.obj TO .\Objects\Hell
+>> o_Event PRINT (.\Listings\Hello_Event.m51) RAMSIZE (256) CODE (0X0000-0XFFFF) XDATA (0X0000-0X03FF)
+
+
+MEMORY MODEL: LARGE
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\HRTOS_FastTask.obj (HRTOS_FASTTASK)
+  ..\..\..\..\Kernel\Project\Objects\HRTOS.LIB (TASK_CREATE)
+  ..\..\..\..\Kernel\Project\Objects\HRTOS.LIB (KERNEL)
+  ..\..\..\..\Kernel\Project\Objects\HRTOS.LIB (IDLE_TASK)
+  ..\..\..\..\Kernel\Project\Objects\HRTOS.LIB (SLAB_OVERFLOW)
+  ..\..\..\..\Kernel\Project\Objects\HRTOS.LIB (TASK_CLEANUP)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C_STARTUP)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?IILDX)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?ILDIX)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?ICALL)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  .\Objects\Hello_Event (HRTOS_FASTTASK)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+                    0008H     000DH                  *** GAP ***
+            DATA    0015H     0001H     ABSOLUTE     
+                    0016H     000AH                  *** GAP ***
+            BIT     0020H.0   0001H.5   UNIT         ?BI?KERNEL
+                    0021H.5   000EH.3                *** GAP ***
+            DATA    0030H     0001H     ABSOLUTE     
+            DATA    0031H     0001H     ABSOLUTE     
+            DATA    0032H     0001H     ABSOLUTE     
+            DATA    0033H     0001H     ABSOLUTE     
+            DATA    0034H     0001H     ABSOLUTE     
+            DATA    0035H     0005H     ABSOLUTE     
+            DATA    003AH     0007H     ABSOLUTE     
+            DATA    0041H     0001H     ABSOLUTE     
+            DATA    0042H     003EH     ABSOLUTE     
+                    0080H     005BH                  *** GAP ***
+            IDATA   00DBH     0006H     ABSOLUTE     
+            IDATA   00E1H     0001H     ABSOLUTE     
+            IDATA   00E2H     0001H     ABSOLUTE     
+            IDATA   00E3H     0001H     ABSOLUTE     
+            IDATA   00E4H     0001H     ABSOLUTE     
+            IDATA   00E5H     0001H     ABSOLUTE     
+            IDATA   00E6H     0001H     ABSOLUTE     
+            IDATA   00E7H     0001H     ABSOLUTE     
+            IDATA   00E8H     0001H     UNIT         ?STACK
+
+            * * * * * * *  X D A T A   M E M O R Y  * * * * * * *
+            XDATA   0000H     00DCH     UNIT         ?XD?KERNEL
+            XDATA   00DCH     0009H     UNIT         ?XD?_OS_TASK_CREATE?TASK_CREATE
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  08/21/2026  23:21:12  PAGE 2
+
+
+            XDATA   00E5H     0008H     UNIT         ?XD?_OS_MEMSET?KERNEL
+            XDATA   00EDH     0005H     UNIT         ?XD?_OS_TASK_CLEANUP?TASK_CLEANUP
+            XDATA   00F2H     0004H     UNIT         ?XD?HRTOS_FASTTASK
+            XDATA   00F6H     0003H     UNIT         ?XD?IDLE_TASK
+            XDATA   00F9H     0003H     UNIT         ?XD?SLAB_OVERFLOW
+            XDATA   00FCH     0001H     UNIT         ?XD?OS_IDLE_TASK?IDLE_TASK
+                    00FDH     0103H                  *** GAP ***
+            XDATA   0200H     0010H     ABSOLUTE     
+            XDATA   0210H     0010H     ABSOLUTE     
+            XDATA   0220H     0002H     ABSOLUTE     
+                    0222H     000EH                  *** GAP ***
+            XDATA   0230H     000AH     ABSOLUTE     
+                    023AH     0006H                  *** GAP ***
+            XDATA   0240H     00D0H     ABSOLUTE     
+            XDATA   0310H     0004H     ABSOLUTE     
+                    0314H     000CH                  *** GAP ***
+            XDATA   0320H     0010H     ABSOLUTE     
+            XDATA   0330H     0001H     ABSOLUTE     
+            XDATA   0331H     0004H     ABSOLUTE     
+            XDATA   0335H     0002H     ABSOLUTE     
+            XDATA   0337H     0002H     ABSOLUTE     
+            XDATA   0339H     0002H     ABSOLUTE     
+            XDATA   033BH     0002H     ABSOLUTE     
+            XDATA   033DH     0002H     ABSOLUTE     
+            XDATA   033FH     0001H     ABSOLUTE     
+            XDATA   0340H     0002H     ABSOLUTE     
+            XDATA   0342H     0002H     ABSOLUTE     
+            XDATA   0344H     0012H     ABSOLUTE     
+            XDATA   0356H     0001H     ABSOLUTE     
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0008H     ABSOLUTE     
+            CODE    000BH     0008H     ABSOLUTE     
+            CODE    0013H     0008H     ABSOLUTE     
+            CODE    001BH     0008H     ABSOLUTE     
+            CODE    0023H     0008H     ABSOLUTE     
+            CODE    002BH     0008H     ABSOLUTE     
+            CODE    0033H     0008H     ABSOLUTE     
+            CODE    003BH     0008H     ABSOLUTE     
+            CODE    0043H     0008H     ABSOLUTE     
+            CODE    004BH     0008H     ABSOLUTE     
+            CODE    0053H     0008H     ABSOLUTE     
+            CODE    005BH     0008H     ABSOLUTE     
+            CODE    0063H     0008H     ABSOLUTE     
+            CODE    006BH     0008H     ABSOLUTE     
+            CODE    0073H     0008H     ABSOLUTE     
+            CODE    007BH     0008H     ABSOLUTE     
+            CODE    0083H     0008H     ABSOLUTE     
+            CODE    008BH     0008H     ABSOLUTE     
+            CODE    0093H     0008H     ABSOLUTE     
+            CODE    009BH     0008H     ABSOLUTE     
+            CODE    00A3H     0008H     ABSOLUTE     
+            CODE    00ABH     0008H     ABSOLUTE     
+            CODE    00B3H     0008H     ABSOLUTE     
+            CODE    00BBH     0008H     ABSOLUTE     
+            CODE    00C3H     0008H     ABSOLUTE     
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  08/21/2026  23:21:12  PAGE 3
+
+
+            CODE    00CBH     0008H     ABSOLUTE     
+            CODE    00D3H     0008H     ABSOLUTE     
+            CODE    00DBH     0008H     ABSOLUTE     
+            CODE    00E3H     0008H     ABSOLUTE     
+            CODE    00EBH     0008H     ABSOLUTE     
+            CODE    00F3H     0008H     ABSOLUTE     
+            CODE    00FBH     000FH     ABSOLUTE     
+            CODE    010AH     0B9FH     UNIT         ?PR?OS_DISPATCH_KERNEL?KERNEL
+            CODE    0CA9H     03B9H     UNIT         ?PR?_OS_TASK_CLEANUP?TASK_CLEANUP
+            CODE    1062H     0389H     UNIT         ?PR?_OS_TASK_CREATE?TASK_CREATE
+            CODE    13EBH     0161H     UNIT         ?PR?OS_IDLE_TASK?IDLE_TASK
+            CODE    154CH     00B5H     UNIT         ?PR?MAIN?KERNEL
+            CODE    1601H     008CH     UNIT         ?C_C51STARTUP
+            CODE    168DH     005DH     UNIT         ?PR?_OS_MEMSET?KERNEL
+            CODE    16EAH     003BH     UNIT         ?PR?OS_INTERRUPT_INIT?KERNEL
+            CODE    1725H     0032H     UNIT         ?C?LIB_CODE
+            CODE    1757H     0031H     UNIT         ?PR?HRTOS_MAIN?HRTOS_FASTTASK
+            CODE    1788H     001FH     UNIT         ?PR?OS_SLAB_OVERFLOW?SLAB_OVERFLOW
+            CODE    17A7H     0014H     UNIT         ?PR?FAST_TASK_A?HRTOS_FASTTASK
+            CODE    17BBH     0014H     UNIT         ?PR?FAST_TASK_B?HRTOS_FASTTASK
+            CODE    17CFH     0014H     UNIT         ?PR?OS_INTERRUPT_EXIT?KERNEL
+            CODE    17E3H     000BH     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\Hello_Event (HRTOS_FASTTASK)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?KERNEL
+  +--> ?C_INITSEG
+
+?PR?MAIN?KERNEL
+  +--> ?PR?_OS_MEMSET?KERNEL
+  +--> ?PR?OS_IDLE_TASK?IDLE_TASK
+  +--> ?PR?_OS_TASK_CREATE?TASK_CREATE
+  +--> ?PR?OS_INTERRUPT_EXIT?KERNEL
+  +--> ?PR?OS_SLAB_OVERFLOW?SLAB_OVERFLOW
+
+?PR?OS_IDLE_TASK?IDLE_TASK
+  +--> ?PR?HRTOS_MAIN?HRTOS_FASTTASK
+  +--> ?PR?_OS_TASK_CLEANUP?TASK_CLEANUP
+
+?PR?HRTOS_MAIN?HRTOS_FASTTASK
+  +--> ?PR?FAST_TASK_A?HRTOS_FASTTASK
+  +--> ?PR?_OS_TASK_CREATE?TASK_CREATE
+  +--> ?PR?FAST_TASK_B?HRTOS_FASTTASK
+
+?PR?OS_INTERRUPT_EXIT?KERNEL
+  +--> ?PR?OS_INTERRUPT_INIT?KERNEL
+  +--> ?PR?OS_DISPATCH_KERNEL?KERNEL
+
+
+
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  08/21/2026  23:21:12  PAGE 4
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\Hello_Event (HRTOS_FASTTASK)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        HRTOS_FASTTASK
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  B:0090H.0       PUBLIC        LED_FAST_A
+  C:17A7H         SYMBOL        fast_task_a
+  B:0090H.1       PUBLIC        LED_FAST_B
+  C:17BBH         SYMBOL        fast_task_b
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:1757H         PUBLIC        hrtos_main
+  D:00C8H         PUBLIC        T2CON
+  X:00F2H         SYMBOL        count_a
+  X:00F4H         SYMBOL        count_b
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          FAST_TASK_A
+  C:17A7H         LINE#         21
+  C:17A7H         LINE#         22
+  C:17A7H         LINE#         23
+  C:17A9H         LINE#         25
+  C:17A9H         LINE#         26
+  C:17A9H         LINE#         27
+  C:17B7H         LINE#         30
+  C:17B9H         LINE#         31
+  -------         ENDPROC       FAST_TASK_A
+  -------         PROC          FAST_TASK_B
+  C:17BBH         LINE#         35
+  C:17BBH         LINE#         36
+  C:17BBH         LINE#         37
+  C:17BDH         LINE#         39
+  C:17BDH         LINE#         40
+  C:17BDH         LINE#         41
+  C:17CBH         LINE#         44
+  C:17CDH         LINE#         45
+  -------         ENDPROC       FAST_TASK_B
+  -------         PROC          HRTOS_MAIN
+  C:1757H         LINE#         49
+  C:1757H         LINE#         50
+  C:1757H         LINE#         51
+  C:176DH         LINE#         52
+  C:176DH         LINE#         53
+  C:176FH         LINE#         54
+  C:176FH         LINE#         56
+  C:1785H         LINE#         57
+  C:1785H         LINE#         58
+  C:1787H         LINE#         59
+  C:1787H         LINE#         60
+  -------         ENDPROC       HRTOS_MAIN
+  -------         ENDMOD        HRTOS_FASTTASK
+
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  08/21/2026  23:21:12  PAGE 5
+
+
+  -------         MODULE        ?C?IILDX
+  C:1725H         PUBLIC        ?C?IILDX
+  -------         ENDMOD        ?C?IILDX
+
+  -------         MODULE        ?C?ILDIX
+  C:173BH         PUBLIC        ?C?ILDIX
+  -------         ENDMOD        ?C?ILDIX
+
+  -------         MODULE        ?C?ICALL
+  C:1751H         PUBLIC        ?C?ICALL
+  C:1755H         PUBLIC        ?C?ICALL2
+  -------         ENDMOD        ?C?ICALL
+
+Program Size: data=104.5 xdata=564 code=6126
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

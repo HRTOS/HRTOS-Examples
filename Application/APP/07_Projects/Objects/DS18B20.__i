@@ -1,0 +1,1 @@
+"..\03_Sensor\DS18B20.c" LARGE OPTIMIZE (0,SPEED) BROWSE MODDP2 INCDIR(..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\DS18B20.lst) OBJECT(.\Objects\DS18B20.obj)

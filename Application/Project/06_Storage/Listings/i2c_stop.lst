@@ -1,0 +1,45 @@
+C51 COMPILER V9.60.7.0   I2C_STOP                                                          09/06/2026 16:57:17 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE I2C_STOP
+OBJECT MODULE PLACED IN .\Objects\i2c_stop.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\06_Storage\EEPROM\EEPROM-IIC\i2c_stop.c LARGE OPTIMIZE(0,SPEED
+                    -) INCDIR(..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\i2c_stop.lst) OBJECT(.\Objects\i2c_stop.o
+                    -bj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          
+   4          /*******************************************************************************
+   5           * 函 数 名 : eeprom_i2c_stop
+   6           * 功能描述 : 产生 I2C 停止信号
+   7           * 输    入 : 无
+   8           * 输    出 : 无
+   9           ******************************************************************************/
+  10          void eeprom_i2c_stop(void)
+  11          {
+  12   1          EEPROM_SDA = 0;
+  13   1          eeprom_delay();
+  14   1      
+  15   1          EEPROM_SCL = 1;
+  16   1          eeprom_delay();
+  17   1      
+  18   1          EEPROM_SDA = 1;
+  19   1          eeprom_delay();
+  20   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     16    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

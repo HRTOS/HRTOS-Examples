@@ -1,0 +1,201 @@
+C51 COMPILER V9.60.7.0   PWM                                                               08/16/2026 10:04:10 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE PWM
+OBJECT MODULE PLACED IN .\Objects\pwm.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\05_Control\PWM\pwm.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTE
+                    -ND PRINT(.\Listings\pwm.lst) OBJECT(.\Objects\pwm.obj)
+
+line level    source
+
+   1          #include "pwm.h"
+*** WARNING C318 IN LINE 1 OF ..\..\Src\05_Control\PWM\pwm.c: can't open file 'pwm.h'
+   2          
+   3          
+   4          /*------------------------------------------------
+   5           * PCA相关特殊功能寄存器
+   6           *------------------------------------------------*/
+   7          
+   8          sfr CCON    = 0xD8;
+   9          sfr CMOD    = 0xD9;
+  10          
+  11          sfr CCAPM0  = 0xDA;
+  12          
+  13          sfr CL      = 0xE9;
+  14          sfr CH      = 0xF9;
+  15          
+  16          sfr CCAP0L  = 0xEA;
+  17          sfr CCAP0H  = 0xFA;
+  18          
+  19          
+  20          /* PCA启动/停止控制位 */
+  21          sbit CR = CCON^6;
+  22          
+  23          
+  24          /*
+  25           * PWM当前占空比
+  26           *
+  27           * 使用0~100表示，方便应用层使用。
+  28           */
+  29          static u8 pwm_duty;
+*** ERROR C129 IN LINE 29 OF ..\..\Src\05_Control\PWM\pwm.c: missing ';' before 'pwm_duty'
+  30          
+  31          
+  32          /*
+  33           * 函数名：drv_pwm_init
+  34           *
+  35           * 功能：
+  36           *      初始化PCA PWM模块。
+  37           *
+  38           * 说明：
+  39           *      PCA工作在8位PWM模式。
+  40           *      不使用PCA中断。
+  41           */
+  42          void drv_pwm_init(void)
+  43          {
+  44              pwm_duty = 0;
+  45          
+  46              /*
+  47               * 初始化PCA控制寄存器
+  48               *
+  49               * 停止PCA
+  50               * 清除PCA状态
+  51               */
+  52              CCON = 0x00;
+C51 COMPILER V9.60.7.0   PWM                                                               08/16/2026 10:04:10 PAGE 2   
+
+  53          
+  54              /*
+  55               * PCA计数器清零
+  56               */
+  57              CL = 0x00;
+  58              CH = 0x00;
+  59          
+  60              /*
+  61               * PCA时钟：
+  62               *
+  63               * FOSC / 2
+  64               */
+  65              CMOD = 0x02;
+  66          
+  67              /*
+  68               * PCA模块0工作在8位PWM模式
+  69               *
+  70               * 0x42：
+  71               *      PWM模式
+  72               *      不产生中断
+  73               */
+  74              CCAPM0 = 0x42;
+  75          
+  76              /*
+  77               * 初始占空比
+  78               *
+  79               * 这里设置为0。
+  80               */
+  81              CCAP0H = 0xFF;
+  82              CCAP0L = 0xFF;
+  83          
+  84              /*
+  85               * 启动PCA
+  86               */
+  87              CR = 1;
+  88          }
+  89          
+  90          
+  91          /*
+  92           * 函数名：drv_pwm_set_duty
+  93           *
+  94           * 功能：
+  95           *      设置PWM占空比。
+  96           *
+  97           * 参数：
+  98           *      duty：0~100
+  99           *
+ 100           * 说明：
+ 101           *      PCA硬件PWM寄存器的方向与
+ 102           *      常规“数值越大占空比越大”的
+ 103           *      直觉相反。
+ 104           *
+ 105           *      因此这里将：
+ 106           *
+ 107           *          0   -> 0%
+ 108           *          100 -> 100%
+ 109           *
+ 110           *      转换成PCA对应的寄存器值。
+ 111           */
+ 112          void drv_pwm_set_duty(u8 duty)
+ 113          {
+ 114              unsigned int pwm_value;
+C51 COMPILER V9.60.7.0   PWM                                                               08/16/2026 10:04:10 PAGE 3   
+
+ 115          
+ 116              /*
+ 117               * 限制参数范围
+ 118               */
+ 119              if(duty > 100)
+ 120              {
+ 121                  duty = 100;
+ 122              }
+ 123          
+ 124              pwm_duty = duty;
+ 125          
+ 126              /*
+ 127               * 将0~100%的占空比
+ 128               * 转换为0~255。
+ 129               */
+ 130              pwm_value = (unsigned int)duty * 255;
+ 131              pwm_value /= 100;
+ 132          
+ 133              /*
+ 134               * PCA PWM寄存器：
+ 135               *
+ 136               * 0x00 -> 接近100%
+ 137               * 0xFF -> 接近0%
+ 138               *
+ 139               * 因此需要反向转换。
+ 140               */
+ 141              pwm_value = 255 - pwm_value;
+ 142          
+ 143              CCAP0H = (u8)pwm_value;
+ 144              CCAP0L = (u8)pwm_value;
+ 145          }
+ 146          
+ 147          
+ 148          /*
+ 149           * 函数名：drv_pwm_get_duty
+ 150           *
+ 151           * 功能：
+ 152           *      获取当前PWM占空比。
+ 153           */
+ 154          u8 drv_pwm_get_duty(void)
+ 155          {
+ 156              return pwm_duty;
+ 157          }
+ 158          
+ 159          
+ 160          /*
+ 161           * 函数名：drv_pwm_stop
+ 162           *
+ 163           * 功能：
+ 164           *      停止PCA PWM。
+ 165           */
+ 166          void drv_pwm_stop(void)
+ 167          {
+ 168              CR = 0;
+ 169          }
+ 170          
+ 171          
+ 172          /*
+ 173           * 函数名：drv_pwm_start
+ 174           *
+ 175           * 功能：
+ 176           *      启动PCA PWM。
+C51 COMPILER V9.60.7.0   PWM                                                               08/16/2026 10:04:10 PAGE 4   
+
+ 177           */
+ 178          void drv_pwm_start(void)
+ 179          {
+ 180              CR = 1;
+ 181          }
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  1 ERROR(S)

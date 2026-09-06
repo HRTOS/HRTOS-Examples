@@ -1,0 +1,161 @@
+C51 COMPILER V9.60.7.0   PWS                                                               09/05/2026 09:00:52 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE PWS
+OBJECT MODULE PLACED IN .\Objects\pws.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\05_Control\pws.c LARGE OPTIMIZE(0,SPEED) BROWSE MODDP2 INCDIR(..\..\I
+                    -nc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\pws.lst) OBJECT(.\Objects\pws.obj)
+
+line level    source
+
+   1          
+   2          #include "hrtos.h"
+   3          #include "hrtos_hal.h"
+   4          
+   5          /*
+   6           * =========================================================
+   7           * PWM + 4位数码管显示示例
+   8           * ---------------------------------------------------------
+   9           * 功能：
+  10           * 1. 初始化PWM
+  11           * 2. 设置PWM占空比
+  12           * 3. PWM占空比从0%逐渐增加到100%
+  13           * 4. 再从100%逐渐降低到0%
+  14           * 5. 使用4位数码管显示当前占空比
+  15           *
+  16           * 数码管显示：
+  17           *     0000 -> 0%
+  18           *     0050 -> 50%
+  19           *     0100 -> 100%
+  20           *
+  21           * PWM输出：
+  22           *     占空比随时间逐渐变化
+  23           * =========================================================
+  24           */
+  25          
+  26          
+  27          /*------------------------------------------------
+  28           * 当前PWM占空比
+  29           *------------------------------------------------*/
+  30          unsigned char pwm_display_duty = 0;
+  31          
+  32          
+  33          /*------------------------------------------------
+  34           * PWM控制任务
+  35           *------------------------------------------------*/
+  36          void task_pwm_control(void)
+  37          {
+  38   1          unsigned char duty;
+  39   1      
+  40   1          while(1)
+  41   1          {
+  42   2              /*
+  43   2               * 占空比从0%增加到100%
+  44   2               */
+  45   2              for(duty = 0; duty <= 100; duty++)
+  46   2              {
+  47   3                  drv_pwm_set_duty(duty);
+  48   3      
+  49   3                  pwm_display_duty = duty;
+  50   3      
+  51   3                  os_delay(1);
+  52   3              }
+  53   2      
+  54   2              /*
+C51 COMPILER V9.60.7.0   PWS                                                               09/05/2026 09:00:52 PAGE 2   
+
+  55   2               * 占空比从100%降低到0%
+  56   2               */
+  57   2              for(duty = 100; duty > 0; duty--)
+  58   2              {
+  59   3                  drv_pwm_set_duty(duty);
+  60   3      
+  61   3                  pwm_display_duty = duty;
+  62   3      
+  63   3                  os_delay(1);
+  64   3              }
+  65   2      
+  66   2              /*
+  67   2               * 最后设置为0%
+  68   2               */
+  69   2              drv_pwm_set_duty(0);
+  70   2      
+  71   2              pwm_display_duty = 0;
+  72   2          }
+  73   1      }
+  74          
+  75          
+  76          /*------------------------------------------------
+  77           * 数码管显示任务
+  78           *
+  79           * 显示当前PWM占空比
+  80           *------------------------------------------------*/
+  81          void task_seg_display(void)
+  82          {
+  83   1          unsigned int value;
+  84   1      
+  85   1          while(1)
+  86   1          {
+  87   2              /*
+  88   2               * 获取当前占空比
+  89   2               */
+  90   2              value = drv_pwm_get_duty();
+  91   2      
+  92   2              /*
+  93   2               * 显示0~100
+  94   2               */
+  95   2              drv_seg_display(0, value / 1000);
+  96   2              drv_seg_display(1, value / 100 % 10);
+  97   2              drv_seg_display(2, value / 10 % 10);
+  98   2              drv_seg_display(3, value % 10);
+  99   2          }
+ 100   1      }
+ 101          
+ 102          
+ 103          /**
+ 104           * @brief PWM示例初始化
+ 105           */
+ 106          void hrtos_main(void)
+ 107          {
+ 108   1          /* 初始化PWM */
+ 109   1          drv_pwm_init();
+ 110   1      
+ 111   1          /* 初始化数码管 */
+ 112   1          drv_seg_init();
+ 113   1      
+ 114   1          /* 设置初始占空比为0% */
+ 115   1          drv_pwm_set_duty(0);
+ 116   1      
+C51 COMPILER V9.60.7.0   PWS                                                               09/05/2026 09:00:52 PAGE 3   
+
+ 117   1          /* 创建PWM控制任务 */
+ 118   1          os_task_create(
+ 119   1              task_pwm_control,
+ 120   1              2,
+ 121   1              2,
+ 122   1              4
+ 123   1          );
+ 124   1      
+ 125   1          /* 创建数码管显示任务 */
+ 126   1          os_task_create(
+ 127   1              task_seg_display,
+ 128   1              3,
+ 129   1              2,
+ 130   1              4
+ 131   1          );
+ 132   1      }
+ 133          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    270    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      4    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

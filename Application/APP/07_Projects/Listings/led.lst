@@ -1,0 +1,76 @@
+C51 COMPILER V9.60.7.0   LED                                                               08/28/2026 20:10:30 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE LED
+OBJECT MODULE PLACED IN .\Objects\led.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\01_Basic\led.c LARGE OPTIMIZE(0,SPEED) BROWSE MODDP2 INCDIR(..\..\Inc
+                    -;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\led.lst) OBJECT(.\Objects\led.obj)
+
+line level    source
+
+   1          #include "HRTOS.h"
+   2          #include "HRTOS_HAL.h"
+   3          
+   4          
+   5          /**
+   6           * @brief  LED任务
+   7           *
+   8           * 依次点亮8个LED，实现流水灯效果。
+   9           */
+  10          void task_led(void)
+  11          {
+  12   1          static unsigned char led = 0;
+  13   1      
+  14   1              while(1)
+  15   1              {
+  16   2              drv_led_write(0xff);
+  17   2          drv_led_on(led);
+  18   2      
+  19   2          led++;
+  20   2      
+  21   2          if(led >= 8)
+  22   2          {
+  23   3              led = 0;
+  24   3          }
+  25   2      
+  26   2          os_delay(20);
+  27   2              
+  28   2              }
+  29   1          
+  30   1      }
+  31          
+  32          
+  33          /**
+  34           * @brief  应用初始化
+  35           */
+  36          void app_init(void)
+  37          {
+  38   1          drv_led_init();
+  39   1      
+  40   1          os_task_create(task_led,2,2,3);
+  41   1      }
+  42          
+  43          
+  44          /**
+  45           * @brief  程序入口
+  46           */
+  47          void hrtos_main(void)
+  48          {
+  49   1          app_init();
+  50   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     69    ----
+C51 COMPILER V9.60.7.0   LED                                                               08/28/2026 20:10:30 PAGE 2   
+
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      1    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

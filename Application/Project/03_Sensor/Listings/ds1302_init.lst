@@ -1,0 +1,90 @@
+C51 COMPILER V9.60.7.0   DS1302_INIT                                                       09/06/2026 11:58:06 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE DS1302_INIT
+OBJECT MODULE PLACED IN .\Objects\ds1302_init.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\03_Sensor\DS1302\ds1302_init.c LARGE OPTIMIZE(0,SPEED) INCDIR(
+                    -..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\ds1302_init.lst) OBJECT(.\Objects\ds1302_init.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          unsigned char code drv_ds1302_read_addr[7] =
+   4          {
+   5              0x81,
+   6              0x83,
+   7              0x85,
+   8              0x87,
+   9              0x89,
+  10              0x8B,
+  11              0x8D
+  12          };
+  13          
+  14          unsigned char code drv_ds1302_write_addr[7] =
+  15          {
+  16              0x80,
+  17              0x82,
+  18              0x84,
+  19              0x86,
+  20              0x88,
+  21              0x8A,
+  22              0x8C
+  23          };
+  24          /*------------------------------------------------
+  25           * DS1302初始化
+  26           *
+  27           * 功能：
+  28           * 关闭写保护，确保DS1302能够正常写入。
+  29           *
+  30           * 注意：
+  31           * 不在这里写入固定时间。
+  32           * 时间设置通过drv_ds1302_set_time()完成。
+  33           *------------------------------------------------*/
+  34          void drv_ds1302_init(void)
+  35          {
+  36   1          unsigned char ea_state;
+  37   1      
+  38   1      
+  39   1          ea_state = EA;
+  40   1      
+  41   1          EA = 0;
+  42   1      
+  43   1      
+  44   1          /*------------------------------------------------
+  45   1           * 0x8E：
+  46   1           * DS1302写保护寄存器
+  47   1           *
+  48   1           * 写入0x00：
+  49   1           * 关闭写保护。
+  50   1           *------------------------------------------------*/
+  51   1          drv_ds1302_write_byte(0x8E, 0x00);
+  52   1      
+  53   1      
+  54   1          /*------------------------------------------------
+C51 COMPILER V9.60.7.0   DS1302_INIT                                                       09/06/2026 11:58:06 PAGE 2   
+
+  55   1           * 重新打开写保护
+  56   1           *
+  57   1           * 0x80：
+  58   1           * 开启写保护。
+  59   1           *------------------------------------------------*/
+  60   1          drv_ds1302_write_byte(0x8E, 0x80);
+  61   1      
+  62   1      
+  63   1          EA = ea_state;
+  64   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     35    ----
+   CONSTANT SIZE    =     14    ----
+   XDATA SIZE       =      1    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

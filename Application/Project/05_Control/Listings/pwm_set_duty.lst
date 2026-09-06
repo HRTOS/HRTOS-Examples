@@ -1,0 +1,84 @@
+C51 COMPILER V9.60.7.0   PWM_SET_DUTY                                                      09/05/2026 09:18:29 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE PWM_SET_DUTY
+OBJECT MODULE PLACED IN .\Objects\pwm_set_duty.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\05_Control\PWM\pwm_set_duty.c LARGE OPTIMIZE(0,SPEED) INCDIR(.
+                    -.\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\pwm_set_duty.lst) OBJECT(.\Objects\pwm_set_duty.obj
+                    -)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          /*
+   4           * 函数名：drv_pwm_set_duty
+   5           *
+   6           * 功能：
+   7           *      设置PWM占空比。
+   8           *
+   9           * 参数：
+  10           *      duty：0~100
+  11           *
+  12           * 说明：
+  13           *      PCA硬件PWM寄存器的方向与
+  14           *      常规“数值越大占空比越大”的
+  15           *      直觉相反。
+  16           *
+  17           *      因此这里将：
+  18           *
+  19           *          0   -> 0%
+  20           *          100 -> 100%
+  21           *
+  22           *      转换成PCA对应的寄存器值。
+  23           */
+  24          void drv_pwm_set_duty(u8 duty)
+  25          {
+  26   1          unsigned int pwm_value;
+  27   1      
+  28   1          /*
+  29   1           * 限制参数范围
+  30   1           */
+  31   1          if(duty > 100)
+  32   1          {
+  33   2              duty = 100;
+  34   2          }
+  35   1      
+  36   1          pwm_duty = duty;
+  37   1      
+  38   1          /*
+  39   1           * 将0~100%的占空比
+  40   1           * 转换为0~255。
+  41   1           */
+  42   1          pwm_value = (unsigned int)duty * 255;
+  43   1          pwm_value /= 100;
+  44   1      
+  45   1          /*
+  46   1           * PCA PWM寄存器：
+  47   1           *
+  48   1           * 0x00 -> 接近100%
+  49   1           * 0xFF -> 接近0%
+  50   1           *
+  51   1           * 因此需要反向转换。
+  52   1           */
+  53   1          pwm_value = 255 - pwm_value;
+C51 COMPILER V9.60.7.0   PWM_SET_DUTY                                                      09/05/2026 09:18:29 PAGE 2   
+
+  54   1      
+  55   1          CCAP0H = (u8)pwm_value;
+  56   1          CCAP0L = (u8)pwm_value;
+  57   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    107    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      3    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

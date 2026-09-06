@@ -1,0 +1,123 @@
+C51 COMPILER V9.60.7.0   RAINDROP_DO                                                       09/04/2026 21:01:24 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE RAINDROP_DO
+OBJECT MODULE PLACED IN .\Objects\raindrop_DO.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\03_Sensor\raindrop_DO.c LARGE OPTIMIZE(0,SPEED) BROWSE MODDP2 INCDIR(
+                    -..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\raindrop_DO.lst) OBJECT(.\Objects\raindrop_DO.obj)
+
+line level    source
+
+   1          
+   2          #include "hrtos.h"
+   3          #include "hrtos_hal.h"
+   4          
+   5          /*
+   6           * =========================================================
+   7           * 雨滴传感器DO + 4位数码管显示示例
+   8           * ---------------------------------------------------------
+   9           * 功能：
+  10           * 1. 初始化雨滴传感器
+  11           * 2. 读取雨滴传感器数字量DO
+  12           * 3. 使用4位数码管显示检测状态
+  13           *
+  14           * DO状态：
+  15           *     0：检测到雨滴
+  16           *     1：未检测到雨滴
+  17           *
+  18           * 数码管显示：
+  19           *     0000：检测到雨滴
+  20           *     0001：未检测到雨滴
+  21           * =========================================================
+  22           */
+  23          
+  24          
+  25          /*------------------------------------------------
+  26           * 雨滴传感器数字量状态
+  27           *------------------------------------------------*/
+  28          unsigned char raindrop_do = 1;
+  29          
+  30          
+  31          /*------------------------------------------------
+  32           * 雨滴传感器DO读取任务
+  33           *------------------------------------------------*/
+  34          void task_raindrop_read(void)
+  35          {
+  36   1          while(1)
+  37   1          {
+  38   2              /* 读取雨滴传感器数字量 */
+  39   2              raindrop_do = drv_raindrop_read_do();
+  40   2      
+  41   2              /*
+  42   2               * 周期读取传感器状态
+  43   2               */
+  44   2              os_delay(50);
+  45   2          }
+  46   1      }
+  47          
+  48          
+  49          /*------------------------------------------------
+  50           * 数码管显示任务
+  51           *------------------------------------------------*/
+  52          void task_seg_display(void)
+  53          {
+  54   1          while(1)
+C51 COMPILER V9.60.7.0   RAINDROP_DO                                                       09/04/2026 21:01:24 PAGE 2   
+
+  55   1          {
+  56   2              /*
+  57   2               * 显示雨滴传感器状态
+  58   2               *
+  59   2               * 0000：检测到雨滴
+  60   2               * 0001：未检测到雨滴
+  61   2               */
+  62   2              drv_seg_display(0, 0);
+  63   2              drv_seg_display(1, 0);
+  64   2              drv_seg_display(2, 0);
+  65   2              drv_seg_display(3, raindrop_do);
+  66   2          }
+  67   1      }
+  68          
+  69          
+  70          /**
+  71           * @brief 雨滴传感器DO示例初始化
+  72           */
+  73          void hrtos_main(void)
+  74          {
+  75   1          /* 初始化雨滴传感器 */
+  76   1          drv_raindrop_init();
+  77   1      
+  78   1          /* 初始化数码管 */
+  79   1          drv_seg_init();
+  80   1      
+  81   1          /* 创建雨滴传感器读取任务 */
+  82   1          os_task_create(
+  83   1              task_raindrop_read,
+  84   1              2,
+  85   1              2,
+  86   1              4
+  87   1          );
+  88   1      
+  89   1          /* 创建数码管显示任务 */
+  90   1          os_task_create(
+  91   1              task_seg_display,
+  92   1              3,
+  93   1              2,
+  94   1              4
+  95   1          );
+  96   1      }
+  97          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    105    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      1    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

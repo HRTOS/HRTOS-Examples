@@ -1,0 +1,52 @@
+C51 COMPILER V9.60.7.0   XPT2046_SPI_READ                                                  09/06/2026 11:04:26 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE XPT2046_SPI_READ
+OBJECT MODULE PLACED IN .\Objects\xpt2046_spi_read.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\03_Sensor\光敏\xpt2046_spi_read.c LARGE OPTIMIZE(0,SPEED) INCD
+                    -IR(..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\xpt2046_spi_read.lst) OBJECT(.\Objects\xpt2046_
+                    -spi_read.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          
+   4          /*------------------------------------------------
+   5           * XPT2046 SPI读取12位数据
+   6           *------------------------------------------------*/
+   7          unsigned int drv_xpt2046_spi_read(void)
+   8          {
+   9   1          unsigned char i;
+  10   1          unsigned int _data;
+  11   1      
+  12   1          _data = 0;
+  13   1      
+  14   1          XPT2046_CLK = 0;
+  15   1      
+  16   1          for(i = 0; i < 12; i++)
+  17   1          {
+  18   2              _data <<= 1;
+  19   2      
+  20   2              XPT2046_CLK = 1;
+  21   2              XPT2046_CLK = 0;
+  22   2      
+  23   2              _data |= XPT2046_DOUT;
+  24   2          }
+  25   1      
+  26   1          return _data;
+  27   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     89    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      3    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

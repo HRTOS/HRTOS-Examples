@@ -1,0 +1,1 @@
+"..\05_Control\relay.c" LARGE OPTIMIZE (0,SPEED) BROWSE MODDP2 INCDIR(..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\relay.lst) OBJECT(.\Objects\relay.obj)

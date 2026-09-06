@@ -1,0 +1,1 @@
+"..\Src\HRTOS_TaskDelete.c" LARGE OPTIMIZE (8,SPEED) BROWSE MODDP2 INCDIR(..\..\INC) DEBUG OBJECTEXTEND PRINT(.\Listings\HRTOS_TaskDelete.lst) OBJECT(.\Objects\HRTOS_TaskDelete.obj)

@@ -1,0 +1,139 @@
+C51 COMPILER V9.60.7.0   RELAY                                                             08/16/2026 10:04:10 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE RELAY
+OBJECT MODULE PLACED IN .\Objects\relay.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\05_Control\Relay\relay.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECT
+                    -EXTEND PRINT(.\Listings\relay.lst) OBJECT(.\Objects\relay.obj)
+
+line level    source
+
+   1          #include "relay.h"
+*** WARNING C318 IN LINE 1 OF ..\..\Src\05_Control\Relay\relay.c: can't open file 'relay.h'
+   2          
+   3          
+   4          /*
+   5           * 继电器控制引脚
+   6           *
+   7           * IN：
+   8           *      P0.0
+   9           *
+  10           * 使能/供电控制：
+  11           *      P1.4
+  12           */
+  13          sbit RELAY_IN = P0^0;
+*** ERROR C202 IN LINE 13 OF ..\..\Src\05_Control\Relay\relay.c: 'P0': undefined identifier
+  14          sbit RELAY_EN = P1^4;
+*** ERROR C202 IN LINE 14 OF ..\..\Src\05_Control\Relay\relay.c: 'P1': undefined identifier
+  15          
+  16          
+  17          /*
+  18           * 继电器当前状态
+  19           *
+  20           * 0：关闭
+  21           * 1：打开
+  22           */
+  23          static u8 relay_state;
+*** ERROR C129 IN LINE 23 OF ..\..\Src\05_Control\Relay\relay.c: missing ';' before 'relay_state'
+  24          
+  25          
+  26          /*
+  27           * 函数名：drv_relay_init
+  28           *
+  29           * 功能：
+  30           *      初始化继电器。
+  31           *
+  32           * 说明：
+  33           *      初始化后默认关闭继电器，
+  34           *      防止单片机启动时继电器误吸合。
+  35           */
+  36          void drv_relay_init(void)
+  37          {
+  38              relay_state = 0;
+  39          
+  40              /*
+  41               * 关闭继电器
+  42               */
+  43              RELAY_IN = 0;
+  44          
+  45              /*
+  46               * 使能脚保持有效
+  47               *
+  48               * 根据原实验程序：
+  49               * RELAY_EN = 1
+  50               * 为正常工作状态。
+C51 COMPILER V9.60.7.0   RELAY                                                             08/16/2026 10:04:10 PAGE 2   
+
+  51               */
+  52              RELAY_EN = 1;
+  53          }
+  54          
+  55          
+  56          /*
+  57           * 函数名：drv_relay_on
+  58           *
+  59           * 功能：
+  60           *      吸合继电器。
+  61           */
+  62          void drv_relay_on(void)
+  63          {
+  64              RELAY_EN = 1;
+  65              RELAY_IN = 1;
+  66          
+  67              relay_state = 1;
+  68          }
+  69          
+  70          
+  71          /*
+  72           * 函数名：drv_relay_off
+  73           *
+  74           * 功能：
+  75           *      释放继电器。
+  76           */
+  77          void drv_relay_off(void)
+  78          {
+  79              RELAY_IN = 0;
+  80              RELAY_EN = 1;
+  81          
+  82              relay_state = 0;
+  83          }
+  84          
+  85          
+  86          /*
+  87           * 函数名：drv_relay_set
+  88           *
+  89           * 功能：
+  90           *      根据指定状态控制继电器。
+  91           *
+  92           * 参数：
+  93           *      state
+  94           *          0：关闭
+  95           *          1：打开
+  96           */
+  97          void drv_relay_set(u8 state)
+  98          {
+  99              if(state)
+ 100              {
+ 101                  drv_relay_on();
+ 102              }
+ 103              else
+ 104              {
+ 105                  drv_relay_off();
+ 106              }
+ 107          }
+ 108          
+ 109          
+ 110          /*
+ 111           * 函数名：drv_relay_get
+ 112           *
+C51 COMPILER V9.60.7.0   RELAY                                                             08/16/2026 10:04:10 PAGE 3   
+
+ 113           * 功能：
+ 114           *      获取当前继电器状态。
+ 115           */
+ 116          u8 drv_relay_get(void)
+ 117          {
+ 118              return relay_state;
+ 119          }
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  3 ERROR(S)

@@ -1,0 +1,1 @@
+"..\03_Sensor\DHT11.c" LARGE OPTIMIZE (0,SPEED) BROWSE MODDP2 INCDIR(..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\DHT11.lst) OBJECT(.\Objects\DHT11.obj)

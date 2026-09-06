@@ -1,0 +1,1 @@
+"..\Src\HRTOS_FastTask.c" LARGE OPTIMIZE (8,SPEED) BROWSE MODDP2 INCDIR(..\..\INC) DEBUG OBJECTEXTEND PRINT(.\Listings\HRTOS_FastTask.lst) OBJECT(.\Objects\HRTOS_FastTask.obj)

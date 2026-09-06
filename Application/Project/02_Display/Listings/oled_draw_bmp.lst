@@ -1,0 +1,56 @@
+C51 COMPILER V9.60.7.0   OLED_DRAW_BMP                                                     08/28/2026 20:45:43 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE OLED_DRAW_BMP
+OBJECT MODULE PLACED IN .\Objects\oled_draw_bmp.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\02_Display\OLED\oled_draw_bmp.c LARGE OPTIMIZE(0,SPEED) INCDIR
+                    -(..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\oled_draw_bmp.lst) OBJECT(.\Objects\oled_draw_bmp
+                    -.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          
+   4          /*------------------------------------------------
+   5           * OLED显示BMP
+   6           *
+   7           * x0/y0：起始位置
+   8           * x1/y1：结束位置
+   9           *------------------------------------------------*/
+  10          void drv_oled_draw_bmp(unsigned char x0,
+  11                                 unsigned char y0,
+  12                                 unsigned char x1,
+  13                                 unsigned char y1,
+  14                                 unsigned char *bmp)
+  15          {
+  16   1          unsigned int j;
+  17   1          unsigned char x;
+  18   1          unsigned char y;
+  19   1      
+  20   1          j = 0;
+  21   1      
+  22   1          for(y = y0; y < y1; y++)
+  23   1          {
+  24   2              drv_oled_set_pos(x0, y);
+  25   2      
+  26   2              for(x = x0; x < x1; x++)
+  27   2              {
+  28   3                  drv_oled_write_data(bmp[j++]);
+  29   3              }
+  30   2          }
+  31   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    127    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =     11    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

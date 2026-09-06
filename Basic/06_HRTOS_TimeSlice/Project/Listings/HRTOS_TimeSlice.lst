@@ -1,0 +1,85 @@
+C51 COMPILER V9.60.7.0   HRTOS_TIMESLICE                                                   08/20/2026 20:48:22 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE HRTOS_TIMESLICE
+OBJECT MODULE PLACED IN .\Objects\HRTOS_TimeSlice.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\Src\HRTOS_TimeSlice.c LARGE OPTIMIZE(8,SPEED) BROWSE MODDP2 INCDIR(..
+                    -\..\INC) DEBUG OBJECTEXTEND PRINT(.\Listings\HRTOS_TimeSlice.lst) OBJECT(.\Objects\HRTOS_TimeSlice.obj)
+
+line level    source
+
+   1          #include "hrtos.h"
+   2          
+   3          /*==================== 配置 ====================*/
+   4          #define TASK_A       1
+   5          #define TASK_B       2
+   6          
+   7          #define PRIO_A       4
+   8          #define PRIO_B       4
+   9          
+  10          #define STACK_A      5
+  11          #define STACK_B      5
+  12          
+  13          /*==================== LED 定义 ====================*/
+  14          sbit LED_A = P1^0;   /* 任务A指示灯 */
+  15          sbit LED_B = P1^1;   /* 任务B指示灯 */
+  16          
+  17          /*==================== 全局 ====================*/
+  18          static u16 count_a = 0;
+  19          static u16 count_b = 0;
+  20          
+  21          /*==================== 任务A ====================*/
+  22          static void task_a(void)
+  23          {
+  24   1          LED_A = 1;
+  25   1      
+  26   1          while (1)
+  27   1          {
+  28   2              count_a++;
+  29   2      
+  30   2              LED_A = ~LED_A;
+  31   2          }
+  32   1      }
+  33          
+  34          /*==================== 任务B ====================*/
+  35          static void task_b(void)
+  36          {
+  37   1          LED_B = 1;
+  38   1      
+  39   1          while (1)
+  40   1          {
+  41   2              count_b++;
+  42   2      
+  43   2              LED_B = ~LED_B;
+  44   2          }
+  45   1      }
+  46          
+  47          /*==================== 系统入口 ====================*/
+  48          void hrtos_main(void)
+  49          {
+  50   1          if (os_task_create(task_a, TASK_A, PRIO_A, STACK_A) != 1)
+  51   1          {
+  52   2              while (1);
+  53   2          }
+  54   1      
+C51 COMPILER V9.60.7.0   HRTOS_TIMESLICE                                                   08/20/2026 20:48:22 PAGE 2   
+
+  55   1          if (os_task_create(task_b, TASK_B, PRIO_B, STACK_B) != 1)
+  56   1          {
+  57   2              while (1);
+  58   2          }
+  59   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     89    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      4    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,139 @@
+C51 COMPILER V9.60.7.0   HRTOS_MUTEX                                                       08/20/2026 20:49:30 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE HRTOS_MUTEX
+OBJECT MODULE PLACED IN .\Objects\HRTOS_Mutex.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\Src\HRTOS_Mutex.c LARGE OPTIMIZE(8,SPEED) BROWSE MODDP2 INCDIR(..\..\
+                    -INC) DEBUG OBJECTEXTEND PRINT(.\Listings\HRTOS_Mutex.lst) OBJECT(.\Objects\HRTOS_Mutex.obj)
+
+line level    source
+
+   1          #include "hrtos.h"
+   2          
+   3          /*==================== 配置 ====================*/
+   4          #define TASK_LOW       1
+   5          #define TASK_HIGH      2
+   6          
+   7          #define PRIO_LOW       3
+   8          #define PRIO_HIGH      6
+   9          
+  10          #define STACK_LOW      5
+  11          #define STACK_HIGH     5
+  12          
+  13          #define MUTEX_KEY      1
+  14          
+  15          #define TICK_LOW       50
+  16          #define TICK_HIGH      100
+  17          
+  18          /*==================== LED 定义 ====================*/
+  19          sbit LED_LOW  = P1^0;   /* 低优先级任务指示灯 */
+  20          sbit LED_HIGH = P1^1;   /* 高优先级任务指示灯 */
+  21          
+  22          /*==================== 全局 ====================*/
+  23          static u8 mutex_count = 0;
+  24          
+  25          /*==================== 低优先级任务 ====================*/
+  26          static void low_task(void)
+  27          {
+  28   1          LED_LOW = 1;
+  29   1      
+  30   1          while (1)
+  31   1          {
+  32   2              /*
+  33   2               * 获取互斥锁
+  34   2               */
+  35   2              if (os_mutex_lock(MUTEX_KEY) == 1)
+  36   2              {
+  37   3                  mutex_count++;
+  38   3      
+  39   3                  /*
+  40   3                   * 持有互斥锁，模拟访问共享资源
+  41   3                   */
+  42   3                  LED_LOW = ~LED_LOW;
+  43   3      
+  44   3                  os_delay(TICK_LOW);
+  45   3      
+  46   3                  /*
+  47   3                   * 释放互斥锁
+  48   3                   */
+  49   3                  os_mutex_unlock(MUTEX_KEY);
+  50   3              }
+  51   2      
+  52   2              os_delay(20);
+  53   2          }
+  54   1      }
+C51 COMPILER V9.60.7.0   HRTOS_MUTEX                                                       08/20/2026 20:49:30 PAGE 2   
+
+  55          
+  56          /*==================== 高优先级任务 ====================*/
+  57          static void high_task(void)
+  58          {
+  59   1          LED_HIGH = 1;
+  60   1      
+  61   1          while (1)
+  62   1          {
+  63   2              /*
+  64   2               * 等待低优先级任务持有互斥锁
+  65   2               */
+  66   2              os_delay(TICK_HIGH);
+  67   2      
+  68   2              /*
+  69   2               * 尝试获取互斥锁
+  70   2               *
+  71   2               * 如果互斥锁已经被低优先级任务占用，
+  72   2               * 系统执行优先级继承。
+  73   2               */
+  74   2              if (os_mutex_lock(MUTEX_KEY) == 1)
+  75   2              {
+  76   3                  /*
+  77   3                   * 高优先级任务获得互斥锁
+  78   3                   */
+  79   3                  LED_HIGH = ~LED_HIGH;
+  80   3      
+  81   3                  /*
+  82   3                   * 模拟访问共享资源
+  83   3                   */
+  84   3                  os_delay(20);
+  85   3      
+  86   3                  /*
+  87   3                   * 只有成功获取锁的任务才能释放
+  88   3                   */
+  89   3                  os_mutex_unlock(MUTEX_KEY);
+  90   3              }
+  91   2          }
+  92   1      }
+  93          
+  94          /*==================== 系统入口 ====================*/
+  95          void hrtos_main(void)
+  96          {
+  97   1          if (os_mutex_init(MUTEX_KEY) != 1)
+  98   1          {
+  99   2              while (1);
+ 100   2          }
+ 101   1      
+ 102   1          if (os_task_create(low_task, TASK_LOW, PRIO_LOW, STACK_LOW) != 1)
+ 103   1          {
+ 104   2              while (1);
+ 105   2          }
+ 106   1      
+ 107   1          if (os_task_create(high_task, TASK_HIGH, PRIO_HIGH, STACK_HIGH) != 1)
+ 108   1          {
+ 109   2              while (1);
+ 110   2          }
+ 111   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    133    ----
+   CONSTANT SIZE    =   ----    ----
+C51 COMPILER V9.60.7.0   HRTOS_MUTEX                                                       08/20/2026 20:49:30 PAGE 3   
+
+   XDATA SIZE       =      1    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

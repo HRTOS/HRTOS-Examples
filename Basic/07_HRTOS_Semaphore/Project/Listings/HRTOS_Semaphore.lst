@@ -1,0 +1,137 @@
+C51 COMPILER V9.60.7.0   HRTOS_SEMAPHORE                                                   08/21/2026 23:50:18 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE HRTOS_SEMAPHORE
+OBJECT MODULE PLACED IN .\Objects\HRTOS_Semaphore.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\Src\HRTOS_Semaphore.c LARGE OPTIMIZE(8,SPEED) BROWSE MODDP2 INCDIR(..
+                    -\..\INC) DEBUG OBJECTEXTEND PRINT(.\Listings\HRTOS_Semaphore.lst) OBJECT(.\Objects\HRTOS_Semaphore.obj)
+
+line level    source
+
+   1          #include "hrtos.h"
+   2          
+   3          /*==================== 配置 ====================*/
+   4          #define TASK_A       1
+   5          #define TASK_B       2
+   6          
+   7          #define PRIO_A       3
+   8          #define PRIO_B       4
+   9          
+  10          #define STACK_A      5
+  11          #define STACK_B      5
+  12          
+  13          #define SEM_KEY      1
+  14          
+  15          #define TICK_A       50
+  16          #define TICK_B       50
+  17          
+  18          /*==================== LED 定义 ====================*/
+  19          sbit LED_A = P1^0;   /* 任务A指示灯 */
+  20          sbit LED_B = P1^1;   /* 任务B指示灯 */
+  21          
+  22          /*==================== 全局 ====================*/
+  23          static u8 sem_count = 0;
+  24          
+  25          /*==================== 任务A ====================*/
+  26          static void task_a(void)
+  27          {
+  28   1          LED_A = 1;
+  29   1      
+  30   1          while (1)
+  31   1          {
+  32   2              /*
+  33   2               * 获取信号量
+  34   2               */
+  35   2                      //
+  36   2              if (os_sem_wait(SEM_KEY) == 2)
+  37   2              {
+  38   3                  sem_count++;
+  39   3      
+  40   3                  /* 获取成功 → 翻转LED */
+  41   3                  LED_A = ~LED_A;
+  42   3      
+  43   3                  /*
+  44   3                   * 模拟占用资源
+  45   3                   */
+  46   3                  os_delay(TICK_A);
+  47   3      
+  48   3                  /*
+  49   3                   * 释放信号量
+  50   3                   */
+  51   3                  os_sem_post(SEM_KEY);
+  52   3              }
+  53   2      
+  54   2              os_delay(10);
+C51 COMPILER V9.60.7.0   HRTOS_SEMAPHORE                                                   08/21/2026 23:50:18 PAGE 2   
+
+  55   2          }
+  56   1      }
+  57          
+  58          /*==================== 任务B ====================*/
+  59          static void task_b(void)
+  60          {
+  61   1          LED_B = 1;
+  62   1      
+  63   1          while (1)
+  64   1          {
+  65   2              /*
+  66   2               * 获取信号量
+  67   2               */
+  68   2              if (os_sem_wait(SEM_KEY) == 2)
+  69   2              {
+  70   3                  sem_count++;
+  71   3      
+  72   3                  /* 获取成功 → 翻转LED */
+  73   3                  LED_B = ~LED_B;
+  74   3      
+  75   3                  /*
+  76   3                   * 模拟占用资源
+  77   3                   */
+  78   3                  os_delay(TICK_B);
+  79   3      
+  80   3                  /*
+  81   3                   * 释放信号量
+  82   3                   */
+  83   3                  os_sem_post(SEM_KEY);
+  84   3              }
+  85   2      
+  86   2              os_delay(10);
+  87   2          }
+  88   1      }
+  89          
+  90          /*==================== 系统入口 ====================*/
+  91          void hrtos_main(void)
+  92          {
+  93   1          if (os_sem_init(SEM_KEY, 1) != 1)
+  94   1          {
+  95   2              while (1);
+  96   2          }
+  97   1      
+  98   1          if (os_task_create(task_a, TASK_A, PRIO_A, STACK_A) != 1)
+  99   1          {
+ 100   2              while (1);
+ 101   2          }
+ 102   1      
+ 103   1          if (os_task_create(task_b, TASK_B, PRIO_B, STACK_B) != 1)
+ 104   1          {
+ 105   2              while (1);
+ 106   2          }
+ 107   1              os_sem_post(SEM_KEY);
+ 108   1              //P1=0;
+ 109   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    145    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      1    ----
+   PDATA SIZE       =   ----    ----
+C51 COMPILER V9.60.7.0   HRTOS_SEMAPHORE                                                   08/21/2026 23:50:18 PAGE 3   
+
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

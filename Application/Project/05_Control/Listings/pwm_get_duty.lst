@@ -1,0 +1,38 @@
+C51 COMPILER V9.60.7.0   PWM_GET_DUTY                                                      09/05/2026 09:18:29 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE PWM_GET_DUTY
+OBJECT MODULE PLACED IN .\Objects\pwm_get_duty.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\05_Control\PWM\pwm_get_duty.c LARGE OPTIMIZE(0,SPEED) INCDIR(.
+                    -.\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\pwm_get_duty.lst) OBJECT(.\Objects\pwm_get_duty.obj
+                    -)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          
+   4          /*
+   5           * 函数名：drv_pwm_get_duty
+   6           *
+   7           * 功能：
+   8           *      获取当前PWM占空比。
+   9           */
+  10          u8 drv_pwm_get_duty(void)
+  11          {
+  12   1          return pwm_duty;
+  13   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =      6    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

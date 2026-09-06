@@ -1,0 +1,79 @@
+C51 COMPILER V9.60.7.0   DISPLAY                                                           08/28/2026 20:47:18 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE DISPLAY
+OBJECT MODULE PLACED IN .\Objects\display.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\02_Display\display.c LARGE OPTIMIZE(0,SPEED) BROWSE MODDP2 INCDIR(..\
+                    -..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\display.lst) OBJECT(.\Objects\display.obj)
+
+line level    source
+
+   1          #include "hrtos.h"
+   2          #include "hrtos_hal.h"
+   3          
+   4          /*
+   5           * =========================================================
+   6           * 4位数码管动态显示示例
+   7           * ---------------------------------------------------------
+   8           * 功能：
+   9           * 1. 初始化数码管
+  10           * 2. 使用一个任务进行动态扫描
+  11           * 3. 数码管显示：1234
+  12           * =========================================================
+  13           */
+  14          
+  15          void task_seg_display(void)
+  16          {
+  17   1          while(1)
+  18   1          {
+  19   2              /* 显示第1位：1 */
+  20   2              drv_seg_display(0, 6);
+  21   2              //os_delay(2);
+  22   2      
+  23   2              /* 显示第2位：2 */
+  24   2              drv_seg_display(1, 6);
+  25   2              //os_delay(2);
+  26   2      
+  27   2              /* 显示第3位：3 */
+  28   2              drv_seg_display(2, 6);
+  29   2              //os_delay(2);
+  30   2      
+  31   2              /* 显示第4位：4 */
+  32   2              drv_seg_display(3, 6);
+  33   2              //os_delay(2);
+  34   2          }
+  35   1      }
+  36          
+  37          
+  38          /**
+  39           * @brief 数码管示例初始化
+  40           */
+  41          void hrtos_main(void)
+  42          {
+  43   1          /* 初始化数码管 */
+  44   1          drv_seg_init();
+  45   1      
+  46   1          /* 创建数码管显示任务 */
+  47   1          os_task_create(
+  48   1              task_seg_display,
+  49   1              2,
+  50   1              2,
+  51   1                      4
+  52   1          );
+  53   1      }
+
+C51 COMPILER V9.60.7.0   DISPLAY                                                           08/28/2026 20:47:18 PAGE 2   
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     58    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

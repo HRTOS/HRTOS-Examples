@@ -1,0 +1,36 @@
+C51 COMPILER V9.60.7.0   LED_TOGGLE                                                        08/28/2026 19:52:33 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE LED_TOGGLE
+OBJECT MODULE PLACED IN .\Objects\led_toggle.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\01_Basic\LED\led_toggle.c LARGE OPTIMIZE(0,SPEED) INCDIR(..\..
+                    -\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\led_toggle.lst) OBJECT(.\Objects\led_toggle.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          
+   4          /**
+   5           * @brief  ·­×ªÖ¸¶¨LED
+   6           * @param  led 0-7
+   7           */
+   8          void drv_led_toggle(unsigned char led)
+   9          {
+  10   1          
+  11   1          LED_PORT ^= (1 << led);
+  12   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     21    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      1    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

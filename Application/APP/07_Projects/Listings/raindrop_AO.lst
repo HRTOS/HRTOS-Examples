@@ -1,0 +1,139 @@
+C51 COMPILER V9.60.7.0   RAINDROP_AO                                                       09/04/2026 20:38:06 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE RAINDROP_AO
+OBJECT MODULE PLACED IN .\Objects\raindrop_AO.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\03_Sensor\raindrop_AO.c LARGE OPTIMIZE(0,SPEED) BROWSE MODDP2 INCDIR(
+                    -..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\raindrop_AO.lst) OBJECT(.\Objects\raindrop_AO.obj)
+
+line level    source
+
+   1          
+   2          #include "hrtos.h"
+   3          #include "hrtos_hal.h"
+   4          
+   5          /*
+   6           * =========================================================
+   7           * 雨滴传感器 + 4位数码管显示示例
+   8           * ---------------------------------------------------------
+   9           * 功能：
+  10           * 1. 初始化雨滴传感器
+  11           * 2. 读取AO模拟量
+  12           * 3. 使用4位数码管显示ADC转换结果
+  13           *
+  14           * ADC分辨率：
+  15           *     10位
+  16           *
+  17           * ADC范围：
+  18           *     0 ~ 1023
+  19           *
+  20           * AO：
+  21           *     模拟输出，数值随雨滴传感器状态变化
+  22           *
+  23           * DO：
+  24           *     数字输出，可用于判断是否达到模块设定阈值
+  25           * =========================================================
+  26           */
+  27          
+  28          
+  29          /*------------------------------------------------
+  30           * 雨滴传感器ADC值
+  31           *------------------------------------------------*/
+  32          unsigned int raindrop_value = 0;
+  33          
+  34          
+  35          /*------------------------------------------------
+  36           * 雨滴传感器读取任务
+  37           *------------------------------------------------*/
+  38          void task_raindrop_read(void)
+  39          {
+  40   1          while(1)
+  41   1          {
+  42   2              /*
+  43   2               * 读取AO模拟量
+  44   2               *
+  45   2               * 这里使用P1.0作为ADC输入。
+  46   2               */
+  47   2              raindrop_value =
+  48   2                  drv_raindrop_read_ao(0);
+  49   2      
+  50   2              /*
+  51   2               * 周期读取
+  52   2               */
+  53   2              os_delay(10);
+  54   2          }
+C51 COMPILER V9.60.7.0   RAINDROP_AO                                                       09/04/2026 20:38:06 PAGE 2   
+
+  55   1      }
+  56          
+  57          
+  58          /*------------------------------------------------
+  59           * 数码管显示任务
+  60           *------------------------------------------------*/
+  61          void task_seg_display(void)
+  62          {
+  63   1          unsigned int value;
+  64   1      
+  65   1          while(1)
+  66   1          {
+  67   2              /* 获取当前ADC值 */
+  68   2              value = raindrop_value;
+  69   2      
+  70   2              /*
+  71   2               * 显示10位ADC结果
+  72   2               *
+  73   2               * 范围：
+  74   2               * 0000 ~ 1023
+  75   2               */
+  76   2              drv_seg_display(0, value / 1000);
+  77   2              drv_seg_display(1, value / 100 % 10);
+  78   2              drv_seg_display(2, value / 10 % 10);
+  79   2              drv_seg_display(3, value % 10);
+  80   2          }
+  81   1      }
+  82          
+  83          
+  84          /**
+  85           * @brief 雨滴传感器示例初始化
+  86           */
+  87          void hrtos_main(void)
+  88          {
+  89   1          /* 初始化雨滴传感器 */
+  90   1          drv_raindrop_init();
+  91   1      
+  92   1          /* 初始化数码管 */
+  93   1          drv_seg_init();
+  94   1      
+  95   1          /* 创建雨滴传感器读取任务 */
+  96   1          os_task_create(
+  97   1              task_raindrop_read,
+  98   1              2,
+  99   1              2,
+ 100   1              4
+ 101   1          );
+ 102   1      
+ 103   1          /* 创建数码管显示任务 */
+ 104   1          os_task_create(
+ 105   1              task_seg_display,
+ 106   1              3,
+ 107   1              2,
+ 108   1              4
+ 109   1          );
+ 110   1      }
+ 111          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    191    ----
+   CONSTANT SIZE    =   ----    ----
+C51 COMPILER V9.60.7.0   RAINDROP_AO                                                       09/04/2026 20:38:06 PAGE 3   
+
+   XDATA SIZE       =      4    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,12 @@
+TRANSFER
+".\Objects\pwm_get_duty.obj",
+".\Objects\pwm_init.obj",
+".\Objects\pwm_set_duty.obj",
+".\Objects\pwm_start.obj",
+".\Objects\pwm_stop.obj",
+".\Objects\relay_get.obj",
+".\Objects\relay_init.obj",
+".\Objects\relay_off.obj",
+".\Objects\relay_on.obj",
+".\Objects\relay_set.obj" 
+TO ".\Objects\HRTOS_Control.LIB"

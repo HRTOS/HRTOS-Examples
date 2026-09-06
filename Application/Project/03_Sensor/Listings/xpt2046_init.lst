@@ -1,0 +1,37 @@
+C51 COMPILER V9.60.7.0   XPT2046_INIT                                                      09/06/2026 11:04:26 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE XPT2046_INIT
+OBJECT MODULE PLACED IN .\Objects\xpt2046_init.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\03_Sensor\π‚√Ù\xpt2046_init.c LARGE OPTIMIZE(0,SPEED) INCDIR(.
+                    -.\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\xpt2046_init.lst) OBJECT(.\Objects\xpt2046_init.obj
+                    -)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          
+   4          /*------------------------------------------------
+   5           * XPT2046≥ı ºªØ
+   6           *------------------------------------------------*/
+   7          void drv_xpt2046_init(void)
+   8          {
+   9   1          XPT2046_CLK  = 0;
+  10   1          XPT2046_CS   = 1;
+  11   1          XPT2046_DIN  = 1;
+  12   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =      7    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,139 @@
+C51 COMPILER V9.60.7.0   KEY_MATRIX                                                        08/28/2026 20:12:09 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE KEY_MATRIX
+OBJECT MODULE PLACED IN .\Objects\KEY_Matrix.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\01_Basic\KEY_Matrix.c LARGE OPTIMIZE(0,SPEED) BROWSE MODDP2 INCDIR(..
+                    -\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\KEY_Matrix.lst) OBJECT(.\Objects\KEY_Matrix.obj)
+
+line level    source
+
+   1          #include "HRTOS.h"
+   2          #include "HRTOS_HAL.h"
+   3          
+   4          
+   5          /**
+   6           * @brief  矩阵键盘任务
+   7           *
+   8           * 周期性扫描矩阵键盘，并获取当前按键值。
+   9           */
+  10          void task_matrixkey(void)
+  11          {
+  12   1          unsigned char key;
+  13   1      
+  14   1          while(1)
+  15   1              {
+  16   2              
+  17   2              key = drv_matrixkey_scan();
+  18   2      
+  19   2          if(key != MATRIXKEY_NONE)
+  20   2          {
+  21   3              switch(key)
+  22   3              {
+  23   4                  case 0:
+  24   4                      /* 按键0 */
+  25   4                      break;
+  26   4      
+  27   4                  case 1:
+  28   4                      /* 按键1 */
+  29   4                      break;
+  30   4      
+  31   4                  case 2:
+  32   4                      /* 按键2 */
+  33   4                      break;
+  34   4      
+  35   4                  case 3:
+  36   4                      /* 按键3 */
+  37   4                      break;
+  38   4      
+  39   4                  case 4:
+  40   4                      /* 按键4 */
+  41   4                      break;
+  42   4      
+  43   4                  case 5:
+  44   4                      /* 按键5 */
+  45   4                      break;
+  46   4      
+  47   4                  case 6:
+  48   4                      /* 按键6 */
+  49   4                      break;
+  50   4      
+  51   4                  case 7:
+  52   4                      /* 按键7 */
+  53   4                      break;
+  54   4      
+C51 COMPILER V9.60.7.0   KEY_MATRIX                                                        08/28/2026 20:12:09 PAGE 2   
+
+  55   4                  case 8:
+  56   4                      /* 按键8 */
+  57   4                      break;
+  58   4      
+  59   4                  case 9:
+  60   4                      /* 按键9 */
+  61   4                      break;
+  62   4      
+  63   4                  case 10:
+  64   4                      /* 按键A */
+  65   4                      break;
+  66   4      
+  67   4                  case 11:
+  68   4                      /* 按键B */
+  69   4                      break;
+  70   4      
+  71   4                  case 12:
+  72   4                      /* 按键C */
+  73   4                      break;
+  74   4      
+  75   4                  case 13:
+  76   4                      /* 按键D */
+  77   4                      break;
+  78   4      
+  79   4                  case 14:
+  80   4                      /* 按键E */
+  81   4                      break;
+  82   4      
+  83   4                  case 15:
+  84   4                      /* 按键F */
+  85   4                      break;
+  86   4              }
+  87   3          }
+  88   2      
+  89   2          os_delay(10);
+  90   2      }
+  91   1      }
+  92          
+  93          
+  94          /**
+  95           * @brief  应用初始化
+  96           */
+  97          void app_init(void)
+  98          {
+  99   1          drv_matrixkey_init();
+ 100   1      
+ 101   1          os_task_create(task_matrixkey,2,2,3);
+ 102   1      }
+ 103          
+ 104          
+ 105          /**
+ 106           * @brief  程序入口
+ 107           */
+ 108          void hrtos_main(void)
+ 109          {
+ 110   1          app_init();
+ 111   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    110    ----
+   CONSTANT SIZE    =   ----    ----
+C51 COMPILER V9.60.7.0   KEY_MATRIX                                                        08/28/2026 20:12:09 PAGE 3   
+
+   XDATA SIZE       =      1    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

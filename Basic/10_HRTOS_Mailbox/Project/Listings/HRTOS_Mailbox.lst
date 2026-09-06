@@ -1,0 +1,124 @@
+C51 COMPILER V9.60.7.0   HRTOS_MAILBOX                                                     08/20/2026 20:51:34 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE HRTOS_MAILBOX
+OBJECT MODULE PLACED IN .\Objects\HRTOS_Mailbox.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\Src\HRTOS_Mailbox.c LARGE OPTIMIZE(8,SPEED) BROWSE MODDP2 INCDIR(..\.
+                    -.\INC) DEBUG OBJECTEXTEND PRINT(.\Listings\HRTOS_Mailbox.lst) OBJECT(.\Objects\HRTOS_Mailbox.obj)
+
+line level    source
+
+   1          #include "hrtos.h"
+   2          
+   3          /*==================== 配置 ====================*/
+   4          #define TASK_RECV     1
+   5          #define TASK_SEND     2
+   6          
+   7          #define PRIO_RECV     5
+   8          #define PRIO_SEND     4
+   9          
+  10          #define STACK_RECV    5
+  11          #define STACK_SEND    5
+  12          
+  13          #define MAILBOX_KEY   1
+  14          
+  15          #define TICK_RECV     20
+  16          #define TICK_SEND     50
+  17          
+  18          /*==================== LED 定义 ====================*/
+  19          sbit LED_RECV = P1^0;   /* 接收任务指示灯 */
+  20          sbit LED_SEND = P1^1;   /* 发送任务指示灯 */
+  21          
+  22          /*==================== 全局 ====================*/
+  23          static u8 send_count = 0;
+  24          static u8 recv_count = 0;
+  25          
+  26          /*==================== 接收任务 ====================*/
+  27          static void recv_task(void)
+  28          {
+  29   1          int _data;
+  30   1      
+  31   1          LED_RECV = 1;
+  32   1      
+  33   1          while (1)
+  34   1          {
+  35   2              /*
+  36   2               * 查询邮箱是否存在数据
+  37   2               * 非阻塞查询
+  38   2               */
+  39   2              if (os_mailbox_query(MAILBOX_KEY) != 0)
+  40   2              {
+  41   3                  /*
+  42   3                   * 接收邮箱数据
+  43   3                   */
+  44   3                  _data = os_mailbox_receive(MAILBOX_KEY);
+  45   3      
+  46   3                  if (_data >= 0)
+  47   3                  {
+  48   4                      recv_count++;
+  49   4      
+  50   4                      /* 接收成功 → 翻转LED */
+  51   4                      LED_RECV = ~LED_RECV;
+  52   4                  }
+  53   3              }
+  54   2      
+C51 COMPILER V9.60.7.0   HRTOS_MAILBOX                                                     08/20/2026 20:51:34 PAGE 2   
+
+  55   2              os_delay(TICK_RECV);
+  56   2          }
+  57   1      }
+  58          
+  59          /*==================== 发送任务 ====================*/
+  60          static void send_task(void)
+  61          {
+  62   1          LED_SEND = 1;
+  63   1      
+  64   1          while (1)
+  65   1          {
+  66   2              send_count++;
+  67   2      
+  68   2              /*
+  69   2               * 向邮箱发送数据
+  70   2               */
+  71   2              if (os_mailbox_send(MAILBOX_KEY, send_count) == 1)
+  72   2              {
+  73   3                  /* 发送成功 → 翻转LED */
+  74   3                  LED_SEND = ~LED_SEND;
+  75   3              }
+  76   2      
+  77   2              os_delay(TICK_SEND);
+  78   2          }
+  79   1      }
+  80          
+  81          /*==================== 系统入口 ====================*/
+  82          void hrtos_main(void)
+  83          {
+  84   1          /*
+  85   1           * 初始化邮箱
+  86   1           */
+  87   1          os_mailbox_init(MAILBOX_KEY);
+  88   1      
+  89   1          if (os_task_create(recv_task, TASK_RECV, PRIO_RECV, STACK_RECV) != 1)
+  90   1          {
+  91   2              while (1);
+  92   2          }
+  93   1      
+  94   1          if (os_task_create(send_task, TASK_SEND, PRIO_SEND, STACK_SEND) != 1)
+  95   1          {
+  96   2              while (1);
+  97   2          }
+  98   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    123    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      2    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

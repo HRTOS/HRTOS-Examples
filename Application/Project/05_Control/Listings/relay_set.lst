@@ -1,0 +1,50 @@
+C51 COMPILER V9.60.7.0   RELAY_SET                                                         09/05/2026 09:18:30 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE RELAY_SET
+OBJECT MODULE PLACED IN .\Objects\relay_set.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\05_Control\Relay\relay_set.c LARGE OPTIMIZE(0,SPEED) INCDIR(..
+                    -\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\relay_set.lst) OBJECT(.\Objects\relay_set.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          
+   4          
+   5          /*
+   6           * 函数名：drv_relay_set
+   7           *
+   8           * 功能：
+   9           *      根据指定状态控制继电器。
+  10           *
+  11           * 参数：
+  12           *      state
+  13           *          0：关闭
+  14           *          1：打开
+  15           */
+  16          void drv_relay_set(u8 state)
+  17          {
+  18   1          if(state)
+  19   1          {
+  20   2              drv_relay_on();
+  21   2          }
+  22   1          else
+  23   1          {
+  24   2              drv_relay_off();
+  25   2          }
+  26   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     17    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      1    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

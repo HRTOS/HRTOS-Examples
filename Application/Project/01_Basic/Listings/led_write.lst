@@ -1,0 +1,36 @@
+C51 COMPILER V9.60.7.0   LED_WRITE                                                         08/28/2026 19:52:33 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE LED_WRITE
+OBJECT MODULE PLACED IN .\Objects\led_write.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\01_Basic\LED\led_write.c LARGE OPTIMIZE(0,SPEED) INCDIR(..\..\
+                    -Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\led_write.lst) OBJECT(.\Objects\led_write.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          
+   4          /**
+   5           * @brief  Ö±½ÓÊä³öLED×´Ì¬
+   6           * @param  value
+   7           */
+   8          void drv_led_write(unsigned char value)
+   9          {
+  10   1          
+  11   1          LED_PORT = value;
+  12   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     10    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      1    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

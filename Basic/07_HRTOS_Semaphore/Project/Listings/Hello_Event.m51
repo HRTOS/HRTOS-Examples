@@ -1,0 +1,356 @@
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    08/21/2026  23:50:18  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
+D:\KEIL_V5\C51\BIN\BL51.EXE ..\..\..\..\Kernel\Project\Objects\HRTOS.LIB, .\Objects\HRTOS_Semaphore.obj TO .\Objects\Hel
+>> lo_Event PRINT (.\Listings\Hello_Event.m51) RAMSIZE (256) CODE (0X0000-0XFFFF) XDATA (0X0000-0X03FF)
+
+
+MEMORY MODEL: LARGE
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\HRTOS_Semaphore.obj (HRTOS_SEMAPHORE)
+  ..\..\..\..\Kernel\Project\Objects\HRTOS.LIB (TASK_CREATE)
+  ..\..\..\..\Kernel\Project\Objects\HRTOS.LIB (SEM_INIT)
+  ..\..\..\..\Kernel\Project\Objects\HRTOS.LIB (SEM_POST)
+  ..\..\..\..\Kernel\Project\Objects\HRTOS.LIB (SEM_WAIT)
+  ..\..\..\..\Kernel\Project\Objects\HRTOS.LIB (DELAY)
+  ..\..\..\..\Kernel\Project\Objects\HRTOS.LIB (KERNEL)
+  ..\..\..\..\Kernel\Project\Objects\HRTOS.LIB (OS_WAIT)
+  ..\..\..\..\Kernel\Project\Objects\HRTOS.LIB (WAKE_TASK)
+  ..\..\..\..\Kernel\Project\Objects\HRTOS.LIB (IDLE_TASK)
+  ..\..\..\..\Kernel\Project\Objects\HRTOS.LIB (SLAB_OVERFLOW)
+  ..\..\..\..\Kernel\Project\Objects\HRTOS.LIB (TASK_CLEANUP)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C_STARTUP)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?CLDPTR)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?CILDPTR)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?CSTPTR)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?CSTOPTR)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?IMUL)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?IILDX)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?ILDIX)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?ILDOPTR)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?ISTOPTR)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?OFFXADD)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?ICALL)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  .\Objects\Hello_Event (HRTOS_SEMAPHORE)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+                    0008H     000DH                  *** GAP ***
+            DATA    0015H     0001H     ABSOLUTE     
+                    0016H     000AH                  *** GAP ***
+            BIT     0020H.0   0001H.5   UNIT         ?BI?KERNEL
+                    0021H.5   000EH.3                *** GAP ***
+            DATA    0030H     0001H     ABSOLUTE     
+            DATA    0031H     0001H     ABSOLUTE     
+            DATA    0032H     0001H     ABSOLUTE     
+            DATA    0033H     0001H     ABSOLUTE     
+            DATA    0034H     0001H     ABSOLUTE     
+            DATA    0035H     0005H     ABSOLUTE     
+            DATA    003AH     0007H     ABSOLUTE     
+            DATA    0041H     0001H     ABSOLUTE     
+            DATA    0042H     003EH     ABSOLUTE     
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  08/21/2026  23:50:18  PAGE 2
+
+
+                    0080H     005BH                  *** GAP ***
+            IDATA   00DBH     0006H     ABSOLUTE     
+            IDATA   00E1H     0001H     ABSOLUTE     
+            IDATA   00E2H     0001H     ABSOLUTE     
+            IDATA   00E3H     0001H     ABSOLUTE     
+            IDATA   00E4H     0001H     ABSOLUTE     
+            IDATA   00E5H     0001H     ABSOLUTE     
+            IDATA   00E6H     0001H     ABSOLUTE     
+            IDATA   00E7H     0001H     ABSOLUTE     
+            IDATA   00E8H     0001H     UNIT         ?STACK
+
+            * * * * * * *  X D A T A   M E M O R Y  * * * * * * *
+            XDATA   0000H     00DCH     UNIT         ?XD?KERNEL
+            XDATA   00DCH     0009H     UNIT         ?XD?_OS_TASK_CREATE?TASK_CREATE
+            XDATA   00E5H     0008H     UNIT         ?XD?_OS_MEMSET?KERNEL
+            XDATA   00EDH     0007H     UNIT         ?XD?_OS_SEM_POST?SEM_POST
+            XDATA   00F4H     0005H     UNIT         ?XD?_OS_SEM_INIT?SEM_INIT
+            XDATA   00F9H     0005H     UNIT         ?XD?_OS_SEM_WAIT?SEM_WAIT
+            XDATA   00FEH     0005H     UNIT         ?XD?_OS_WAIT?OS_WAIT
+            XDATA   0103H     0005H     UNIT         ?XD?_OS_TASK_CLEANUP?TASK_CLEANUP
+            XDATA   0108H     0003H     UNIT         ?XD?_WAKE_TASK?WAKE_TASK
+            XDATA   010BH     0003H     UNIT         ?XD?IDLE_TASK
+            XDATA   010EH     0003H     UNIT         ?XD?SLAB_OVERFLOW
+            XDATA   0111H     0002H     UNIT         ?XD?_OS_DELAY?DELAY
+            XDATA   0113H     0001H     UNIT         ?XD?HRTOS_SEMAPHORE
+            XDATA   0114H     0001H     UNIT         ?XD?OS_IDLE_TASK?IDLE_TASK
+                    0115H     00EBH                  *** GAP ***
+            XDATA   0200H     0010H     ABSOLUTE     
+            XDATA   0210H     0010H     ABSOLUTE     
+            XDATA   0220H     0002H     ABSOLUTE     
+                    0222H     000EH                  *** GAP ***
+            XDATA   0230H     000AH     ABSOLUTE     
+                    023AH     0006H                  *** GAP ***
+            XDATA   0240H     00D0H     ABSOLUTE     
+            XDATA   0310H     0004H     ABSOLUTE     
+                    0314H     000CH                  *** GAP ***
+            XDATA   0320H     0010H     ABSOLUTE     
+            XDATA   0330H     0001H     ABSOLUTE     
+            XDATA   0331H     0004H     ABSOLUTE     
+            XDATA   0335H     0002H     ABSOLUTE     
+            XDATA   0337H     0002H     ABSOLUTE     
+            XDATA   0339H     0002H     ABSOLUTE     
+            XDATA   033BH     0002H     ABSOLUTE     
+            XDATA   033DH     0002H     ABSOLUTE     
+            XDATA   033FH     0001H     ABSOLUTE     
+            XDATA   0340H     0002H     ABSOLUTE     
+            XDATA   0342H     0002H     ABSOLUTE     
+            XDATA   0344H     0012H     ABSOLUTE     
+            XDATA   0356H     0001H     ABSOLUTE     
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0008H     ABSOLUTE     
+            CODE    000BH     0008H     ABSOLUTE     
+            CODE    0013H     0008H     ABSOLUTE     
+            CODE    001BH     0008H     ABSOLUTE     
+            CODE    0023H     0008H     ABSOLUTE     
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  08/21/2026  23:50:18  PAGE 3
+
+
+            CODE    002BH     0008H     ABSOLUTE     
+            CODE    0033H     0008H     ABSOLUTE     
+            CODE    003BH     0008H     ABSOLUTE     
+            CODE    0043H     0008H     ABSOLUTE     
+            CODE    004BH     0008H     ABSOLUTE     
+            CODE    0053H     0008H     ABSOLUTE     
+            CODE    005BH     0008H     ABSOLUTE     
+            CODE    0063H     0008H     ABSOLUTE     
+            CODE    006BH     0008H     ABSOLUTE     
+            CODE    0073H     0008H     ABSOLUTE     
+            CODE    007BH     0008H     ABSOLUTE     
+            CODE    0083H     0008H     ABSOLUTE     
+            CODE    008BH     0008H     ABSOLUTE     
+            CODE    0093H     0008H     ABSOLUTE     
+            CODE    009BH     0008H     ABSOLUTE     
+            CODE    00A3H     0008H     ABSOLUTE     
+            CODE    00ABH     0008H     ABSOLUTE     
+            CODE    00B3H     0008H     ABSOLUTE     
+            CODE    00BBH     0008H     ABSOLUTE     
+            CODE    00C3H     0008H     ABSOLUTE     
+            CODE    00CBH     0008H     ABSOLUTE     
+            CODE    00D3H     0008H     ABSOLUTE     
+            CODE    00DBH     0008H     ABSOLUTE     
+            CODE    00E3H     0008H     ABSOLUTE     
+            CODE    00EBH     0008H     ABSOLUTE     
+            CODE    00F3H     0008H     ABSOLUTE     
+            CODE    00FBH     000FH     ABSOLUTE     
+            CODE    010AH     0B9FH     UNIT         ?PR?OS_DISPATCH_KERNEL?KERNEL
+            CODE    0CA9H     03B9H     UNIT         ?PR?_OS_TASK_CLEANUP?TASK_CLEANUP
+            CODE    1062H     0389H     UNIT         ?PR?_OS_TASK_CREATE?TASK_CREATE
+            CODE    13EBH     026BH     UNIT         ?PR?_OS_WAIT?OS_WAIT
+            CODE    1656H     0168H     UNIT         ?PR?_OS_SEM_POST?SEM_POST
+            CODE    17BEH     0161H     UNIT         ?PR?OS_IDLE_TASK?IDLE_TASK
+            CODE    191FH     0148H     UNIT         ?PR?_WAKE_TASK?WAKE_TASK
+            CODE    1A67H     0124H     UNIT         ?C?LIB_CODE
+            CODE    1B8BH     00B5H     UNIT         ?PR?MAIN?KERNEL
+            CODE    1C40H     008EH     UNIT         ?PR?_OS_SEM_INIT?SEM_INIT
+            CODE    1CCEH     008CH     UNIT         ?C_C51STARTUP
+            CODE    1D5AH     0085H     UNIT         ?PR?_OS_SEM_WAIT?SEM_WAIT
+            CODE    1DDFH     005DH     UNIT         ?PR?_OS_MEMSET?KERNEL
+            CODE    1E3CH     0043H     UNIT         ?PR?HRTOS_MAIN?HRTOS_SEMAPHORE
+            CODE    1E7FH     003BH     UNIT         ?PR?OS_INTERRUPT_INIT?KERNEL
+            CODE    1EBAH     0032H     UNIT         ?PR?_OS_DELAY?DELAY
+            CODE    1EECH     0027H     UNIT         ?PR?TASK_A?HRTOS_SEMAPHORE
+            CODE    1F13H     0027H     UNIT         ?PR?TASK_B?HRTOS_SEMAPHORE
+            CODE    1F3AH     001FH     UNIT         ?PR?OS_SLAB_OVERFLOW?SLAB_OVERFLOW
+            CODE    1F59H     0014H     UNIT         ?PR?OS_INTERRUPT_EXIT?KERNEL
+            CODE    1F6DH     0005H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\Hello_Event (HRTOS_SEMAPHORE)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  08/21/2026  23:50:18  PAGE 4
+
+
+?C_C51STARTUP
+  +--> ?PR?MAIN?KERNEL
+  +--> ?C_INITSEG
+
+?PR?MAIN?KERNEL
+  +--> ?PR?_OS_MEMSET?KERNEL
+  +--> ?PR?OS_IDLE_TASK?IDLE_TASK
+  +--> ?PR?_OS_TASK_CREATE?TASK_CREATE
+  +--> ?PR?OS_INTERRUPT_EXIT?KERNEL
+  +--> ?PR?OS_SLAB_OVERFLOW?SLAB_OVERFLOW
+
+?PR?OS_IDLE_TASK?IDLE_TASK
+  +--> ?PR?HRTOS_MAIN?HRTOS_SEMAPHORE
+  +--> ?PR?_OS_TASK_CLEANUP?TASK_CLEANUP
+
+?PR?HRTOS_MAIN?HRTOS_SEMAPHORE
+  +--> ?PR?_OS_SEM_INIT?SEM_INIT
+  +--> ?PR?TASK_A?HRTOS_SEMAPHORE
+  +--> ?PR?_OS_TASK_CREATE?TASK_CREATE
+  +--> ?PR?TASK_B?HRTOS_SEMAPHORE
+  +--> ?PR?_OS_SEM_POST?SEM_POST
+
+?PR?TASK_A?HRTOS_SEMAPHORE
+  +--> ?PR?_OS_SEM_WAIT?SEM_WAIT
+  +--> ?PR?_OS_DELAY?DELAY
+  +--> ?PR?_OS_SEM_POST?SEM_POST
+
+?PR?_OS_SEM_WAIT?SEM_WAIT
+  +--> ?PR?_OS_WAIT?OS_WAIT
+
+?PR?_OS_DELAY?DELAY
+  +--> ?PR?_OS_WAIT?OS_WAIT
+
+?PR?_OS_SEM_POST?SEM_POST
+  +--> ?PR?_WAKE_TASK?WAKE_TASK
+
+?PR?TASK_B?HRTOS_SEMAPHORE
+  +--> ?PR?_OS_SEM_WAIT?SEM_WAIT
+  +--> ?PR?_OS_DELAY?DELAY
+  +--> ?PR?_OS_SEM_POST?SEM_POST
+
+?PR?OS_INTERRUPT_EXIT?KERNEL
+  +--> ?PR?OS_INTERRUPT_INIT?KERNEL
+  +--> ?PR?OS_DISPATCH_KERNEL?KERNEL
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\Hello_Event (HRTOS_SEMAPHORE)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        HRTOS_SEMAPHORE
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  08/21/2026  23:50:18  PAGE 5
+
+
+  D:00B8H         PUBLIC        IP
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:1E3CH         PUBLIC        hrtos_main
+  X:0113H         SYMBOL        sem_count
+  D:00C8H         PUBLIC        T2CON
+  C:1EECH         SYMBOL        task_a
+  B:0090H.0       PUBLIC        LED_A
+  C:1F13H         SYMBOL        task_b
+  B:0090H.1       PUBLIC        LED_B
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          TASK_A
+  C:1EECH         LINE#         26
+  C:1EECH         LINE#         27
+  C:1EECH         LINE#         28
+  C:1EEEH         LINE#         30
+  C:1EEEH         LINE#         31
+  C:1EEEH         LINE#         36
+  C:1EF6H         LINE#         37
+  C:1EF6H         LINE#         38
+  C:1EFCH         LINE#         41
+  C:1EFEH         LINE#         46
+  C:1F05H         LINE#         51
+  C:1F0AH         LINE#         52
+  C:1F0AH         LINE#         54
+  C:1F11H         LINE#         55
+  -------         ENDPROC       TASK_A
+  -------         PROC          TASK_B
+  C:1F13H         LINE#         59
+  C:1F13H         LINE#         60
+  C:1F13H         LINE#         61
+  C:1F15H         LINE#         63
+  C:1F15H         LINE#         64
+  C:1F15H         LINE#         68
+  C:1F1DH         LINE#         69
+  C:1F1DH         LINE#         70
+  C:1F23H         LINE#         73
+  C:1F25H         LINE#         78
+  C:1F2CH         LINE#         83
+  C:1F31H         LINE#         84
+  C:1F31H         LINE#         86
+  C:1F38H         LINE#         87
+  -------         ENDPROC       TASK_B
+  -------         PROC          HRTOS_MAIN
+  C:1E3CH         LINE#         91
+  C:1E3CH         LINE#         92
+  C:1E3CH         LINE#         93
+  C:1E48H         LINE#         94
+  C:1E48H         LINE#         95
+  C:1E4AH         LINE#         96
+  C:1E4AH         LINE#         98
+  C:1E60H         LINE#         99
+  C:1E60H         LINE#         100
+  C:1E62H         LINE#         101
+  C:1E62H         LINE#         103
+  C:1E78H         LINE#         104
+  C:1E78H         LINE#         105
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  08/21/2026  23:50:18  PAGE 6
+
+
+  C:1E7AH         LINE#         106
+  C:1E7AH         LINE#         107
+  -------         ENDPROC       HRTOS_MAIN
+  -------         ENDMOD        HRTOS_SEMAPHORE
+
+  -------         MODULE        ?C?CLDPTR
+  C:1A67H         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+  -------         MODULE        ?C?CILDPTR
+  C:1A80H         PUBLIC        ?C?CILDPTR
+  -------         ENDMOD        ?C?CILDPTR
+
+  -------         MODULE        ?C?CSTPTR
+  C:1AA2H         PUBLIC        ?C?CSTPTR
+  -------         ENDMOD        ?C?CSTPTR
+
+  -------         MODULE        ?C?CSTOPTR
+  C:1AB4H         PUBLIC        ?C?CSTOPTR
+  -------         ENDMOD        ?C?CSTOPTR
+
+  -------         MODULE        ?C?IMUL
+  C:1AD6H         PUBLIC        ?C?IMUL
+  -------         ENDMOD        ?C?IMUL
+
+  -------         MODULE        ?C?IILDX
+  C:1AE8H         PUBLIC        ?C?IILDX
+  -------         ENDMOD        ?C?IILDX
+
+  -------         MODULE        ?C?ILDIX
+  C:1AFEH         PUBLIC        ?C?ILDIX
+  -------         ENDMOD        ?C?ILDIX
+
+  -------         MODULE        ?C?ILDOPTR
+  C:1B14H         PUBLIC        ?C?ILDOPTR
+  -------         ENDMOD        ?C?ILDOPTR
+
+  -------         MODULE        ?C?ISTOPTR
+  C:1B4CH         PUBLIC        ?C?ISTOPTR
+  -------         ENDMOD        ?C?ISTOPTR
+
+  -------         MODULE        ?C?OFFXADD
+  C:1B79H         PUBLIC        ?C?OFFXADD
+  -------         ENDMOD        ?C?OFFXADD
+
+  -------         MODULE        ?C?ICALL
+  C:1B85H         PUBLIC        ?C?ICALL
+  C:1B89H         PUBLIC        ?C?ICALL2
+  -------         ENDMOD        ?C?ICALL
+
+Program Size: data=104.5 xdata=588 code=8050
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,1 @@
+"..\03_Sensor\AD.c" LARGE OPTIMIZE (0,SPEED) BROWSE MODDP2 INCDIR(..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\AD.lst) OBJECT(.\Objects\AD.obj)

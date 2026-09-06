@@ -1,0 +1,6 @@
+"..\..\LIB\HRTOS.LIB",
+".\Objects\HRTOS_Mutex.obj" 
+TO ".\Objects\Hello_Event" 
+PRINT(".\Listings\Hello_Event.m51") RAMSIZE(256) 
+CODE( 0X0000-0XFFFF )
+XDATA( 0X0000-0X03FF )

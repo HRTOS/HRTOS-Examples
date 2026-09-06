@@ -1,0 +1,71 @@
+C51 COMPILER V9.60.7.0   SOIL_READ_AO                                                      09/06/2026 11:58:09 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE SOIL_READ_AO
+OBJECT MODULE PLACED IN .\Objects\soil_read_ao.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\03_Sensor\土壤湿度\soil_read_ao.c LARGE OPTIMIZE(0,SPEED) INCD
+                    -IR(..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\soil_read_ao.lst) OBJECT(.\Objects\soil_read_ao
+                    -.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          
+   4          /*================================================
+   5           * 函数：drv_soil_read_ao
+   6           *
+   7           * 功能：
+   8           *      读取土壤湿度模拟量
+   9           *
+  10           * 返回：
+  11           *      10位ADC转换结果
+  12           *
+  13           * 范围：
+  14           *      0~1023
+  15           *
+  16           * 说明：
+  17           *      AO连接P1.0，
+  18           *      因此使用ADC通道0。
+  19           *================================================*/
+  20          unsigned int drv_soil_read_ao(void)
+  21          {
+  22   1          unsigned int value;
+  23   1      
+  24   1          /* 启动ADC转换 */
+  25   1          ADC_CONTR = ADC_POWER |
+  26   1                      ADC_SPEEDLL |
+  27   1                      ADC_START |
+  28   1                      0;
+  29   1      
+  30   1          /* 等待ADC转换完成 */
+  31   1          while(!(ADC_CONTR & ADC_FLAG))
+  32   1          {
+  33   2              ;
+  34   2          }
+  35   1      
+  36   1          /* 清除ADC完成标志 */
+  37   1          ADC_CONTR &= ~ADC_FLAG;
+  38   1      
+  39   1          /* 获取10位ADC结果 */
+  40   1          value = ((unsigned int)ADC_RES << 2);
+  41   1          value |= (ADC_LOW2 & 0x03);
+  42   1      
+  43   1          return value;
+  44   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     67    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      2    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+C51 COMPILER V9.60.7.0   SOIL_READ_AO                                                      09/06/2026 11:58:09 PAGE 2   
+
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,146 @@
+C51 COMPILER V9.60.7.0   SOIL                                                              09/04/2026 21:09:03 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE SOIL
+OBJECT MODULE PLACED IN .\Objects\soil.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\03_Sensor\soil.c LARGE OPTIMIZE(0,SPEED) BROWSE MODDP2 INCDIR(..\..\I
+                    -nc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\soil.lst) OBJECT(.\Objects\soil.obj)
+
+line level    source
+
+   1          
+   2          #include "hrtos.h"
+   3          #include "hrtos_hal.h"
+   4          
+   5          /*
+   6           * =========================================================
+   7           * 土壤湿度传感器综合示例
+   8           * ---------------------------------------------------------
+   9           * 功能：
+  10           * 1. 初始化土壤湿度传感器
+  11           * 2. 读取AO模拟量
+  12           * 3. 读取DO数字量
+  13           * 4. 使用4位数码管显示AO模拟量
+  14           *
+  15           * AO：
+  16           *     P1.0
+  17           *     ADC范围：0~1023
+  18           *
+  19           * DO：
+  20           *     P1.1
+  21           *     0：检测到湿度达到模块阈值
+  22           *     1：未达到模块阈值
+  23           *
+  24           * 数码管显示：
+  25           *     显示AO模拟量
+  26           *
+  27           * 例如：
+  28           *     0256
+  29           *     0512
+  30           *     1023
+  31           * =========================================================
+  32           */
+  33          
+  34          
+  35          /*------------------------------------------------
+  36           * 土壤湿度数据
+  37           *------------------------------------------------*/
+  38          unsigned int soil_ao_value = 0;
+  39          
+  40          unsigned char soil_do_value = 1;
+  41          
+  42          
+  43          /*------------------------------------------------
+  44           * 土壤湿度读取任务
+  45           *------------------------------------------------*/
+  46          void task_soil_read(void)
+  47          {
+  48   1          while(1)
+  49   1          {
+  50   2              /* 读取AO模拟量 */
+  51   2              soil_ao_value = drv_soil_read_ao();
+  52   2      
+  53   2              /* 读取DO数字量 */
+  54   2              soil_do_value = drv_soil_read_do();
+C51 COMPILER V9.60.7.0   SOIL                                                              09/04/2026 21:09:03 PAGE 2   
+
+  55   2      
+  56   2              /*
+  57   2               * 周期读取
+  58   2               */
+  59   2              os_delay(100);
+  60   2          }
+  61   1      }
+  62          
+  63          
+  64          /*------------------------------------------------
+  65           * 数码管显示任务
+  66           *
+  67           * 显示AO模拟量：
+  68           *
+  69           * 0000 ~ 1023
+  70           *------------------------------------------------*/
+  71          void task_seg_display(void)
+  72          {
+  73   1          unsigned int value;
+  74   1      
+  75   1          while(1)
+  76   1          {
+  77   2              /* 获取当前土壤湿度模拟量 */
+  78   2              //value = soil_ao_value;
+  79   2                      
+  80   2                      value = soil_do_value;
+  81   2      
+  82   2              /* 显示4位ADC数据 */
+  83   2              drv_seg_display(0, value / 1000);
+  84   2              drv_seg_display(1, value / 100 % 10);
+  85   2              drv_seg_display(2, value / 10 % 10);
+  86   2              drv_seg_display(3, value % 10);
+  87   2          }
+  88   1      }
+  89          
+  90          
+  91          /**
+  92           * @brief 土壤湿度传感器综合示例初始化
+  93           */
+  94          void hrtos_main(void)
+  95          {
+  96   1          /* 初始化土壤湿度传感器 */
+  97   1          drv_soil_init();
+  98   1      
+  99   1          /* 初始化数码管 */
+ 100   1          drv_seg_init();
+ 101   1      
+ 102   1          /* 创建土壤湿度读取任务 */
+ 103   1          os_task_create(
+ 104   1              task_soil_read,
+ 105   1              2,
+ 106   1              2,
+ 107   1              4
+ 108   1          );
+ 109   1      
+ 110   1          /* 创建数码管显示任务 */
+ 111   1          os_task_create(
+ 112   1              task_seg_display,
+ 113   1              3,
+ 114   1              2,
+ 115   1              4
+ 116   1          );
+C51 COMPILER V9.60.7.0   SOIL                                                              09/04/2026 21:09:03 PAGE 3   
+
+ 117   1      }
+ 118          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    196    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      5    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

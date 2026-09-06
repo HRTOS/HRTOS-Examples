@@ -1,0 +1,1 @@
+"..\03_Sensor\raindrop_DO.c" LARGE OPTIMIZE (0,SPEED) BROWSE MODDP2 INCDIR(..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\raindrop_DO.lst) OBJECT(.\Objects\raindrop_DO.obj)

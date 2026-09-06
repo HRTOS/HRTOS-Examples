@@ -1,0 +1,155 @@
+C51 COMPILER V9.60.7.0   I2C                                                               09/06/2026 16:57:59 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE I2C
+OBJECT MODULE PLACED IN .\Objects\i2c.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\06_EEPROM\i2c.c LARGE OPTIMIZE(0,SPEED) BROWSE MODDP2 INCDIR(..\..\In
+                    -c;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\i2c.lst) OBJECT(.\Objects\i2c.obj)
+
+line level    source
+
+   1          
+   2          #include "hrtos.h"
+   3          #include "hrtos_hal.h"
+   4          
+   5          
+   6          
+   7          /*
+   8           * =========================================================
+   9           * 24C02 EEPROM + 4位数码管显示示例
+  10           * ---------------------------------------------------------
+  11           * 功能：
+  12           * 1. 从24C02读取保存的数据
+  13           * 2. 将数据加1后重新写入EEPROM
+  14           * 3. 使用4位数码管显示当前保存的数据
+  15           *
+  16           * EEPROM地址：
+  17           *     0x00
+  18           *
+  19           * 显示范围：
+  20           *     0000 ~ 0255
+  21           *
+  22           * 实验现象：
+  23           *     第一次运行：
+  24           *         读取EEPROM中的数据
+  25           *         数据 +1
+  26           *         写回EEPROM
+  27           *
+  28           *     重新上电：
+  29           *         EEPROM中的数据不会丢失
+  30           *         数码管显示的数据继续增加
+  31           * =========================================================
+  32           */
+  33          
+  34          
+  35          /*------------------------------------------------
+  36           * EEPROM数据
+  37           *------------------------------------------------*/
+  38          unsigned char eeprom_value = 0;
+  39          
+  40          
+  41          /*------------------------------------------------
+  42           * EEPROM读写任务
+  43           *------------------------------------------------*/
+  44          void task_eeprom(void)
+  45          {
+  46   1          while(1)
+  47   1          {
+  48   2              /*
+  49   2               * 读取EEPROM保存的数据
+  50   2               */
+  51   2              
+  52   2                      eeprom_value = eeprom_24c02_read(0x00);
+  53   2                      os_delay(100);
+  54   2      
+C51 COMPILER V9.60.7.0   I2C                                                               09/06/2026 16:57:59 PAGE 2   
+
+  55   2              /*
+  56   2               * 数据加1
+  57   2               */
+  58   2              eeprom_value++;
+  59   2      
+  60   2              /*
+  61   2               * 保存到EEPROM
+  62   2               */
+  63   2                      eeprom_24c02_write(0,eeprom_value);
+  64   2              
+  65   2                      
+  66   2              /*
+  67   2               * 等待一段时间
+  68   2               *
+  69   2               * 防止连续写入EEPROM
+  70   2               */
+  71   2              os_delay(100);
+  72   2          }
+  73   1      }
+  74          
+  75          
+  76          /*------------------------------------------------
+  77           * 数码管显示任务
+  78           *
+  79           * 显示EEPROM中的数据
+  80           *------------------------------------------------*/
+  81          void task_seg_display(void)
+  82          {
+  83   1          unsigned int value;
+  84   1      
+  85   1          while(1)
+  86   1          {
+  87   2              value = eeprom_value;
+  88   2      
+  89   2              /*
+  90   2               * 显示0000~0255
+  91   2               */
+  92   2              drv_seg_display(0, value / 1000);
+  93   2              drv_seg_display(1, value / 100 % 10);
+  94   2              drv_seg_display(2, value / 10 % 10);
+  95   2              drv_seg_display(3, value % 10);
+  96   2          }
+  97   1      }
+  98          
+  99          
+ 100          /**
+ 101           * @brief 24C02 EEPROM示例初始化
+ 102           */
+ 103          void hrtos_main(void)
+ 104          {
+ 105   1          /* 读取EEPROM初始数据 */
+ 106   1          eeprom_value = eeprom_24c02_read(0x00);
+ 107   1      
+ 108   1          /* 初始化数码管 */
+ 109   1          drv_seg_init();
+ 110   1      
+ 111   1          /* 创建EEPROM读写任务 */
+ 112   1          os_task_create(
+ 113   1              task_eeprom,
+ 114   1              2,
+ 115   1              2,
+ 116   1              4
+C51 COMPILER V9.60.7.0   I2C                                                               09/06/2026 16:57:59 PAGE 3   
+
+ 117   1          );
+ 118   1      
+ 119   1          /* 创建数码管显示任务 */
+ 120   1          os_task_create(
+ 121   1              task_seg_display,
+ 122   1              3,
+ 123   1              2,
+ 124   1              4
+ 125   1          );
+ 126   1      }
+ 127          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    214    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      3    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

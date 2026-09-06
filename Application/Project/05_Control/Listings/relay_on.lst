@@ -1,0 +1,40 @@
+C51 COMPILER V9.60.7.0   RELAY_ON                                                          09/05/2026 09:18:30 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE RELAY_ON
+OBJECT MODULE PLACED IN .\Objects\relay_on.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\05_Control\Relay\relay_on.c LARGE OPTIMIZE(0,SPEED) INCDIR(..\
+                    -..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\relay_on.lst) OBJECT(.\Objects\relay_on.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          
+   4          /*
+   5           * 函数名：drv_relay_on
+   6           *
+   7           * 功能：
+   8           *      吸合继电器。
+   9           */
+  10          void drv_relay_on(void)
+  11          {
+  12   1          RELAY_EN = 1;
+  13   1          RELAY_IN = 1;
+  14   1      
+  15   1          relay_state = 1;
+  16   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     11    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

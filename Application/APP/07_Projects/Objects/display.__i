@@ -1,0 +1,1 @@
+"..\02_Display\display.c" LARGE OPTIMIZE (0,SPEED) BROWSE MODDP2 INCDIR(..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\display.lst) OBJECT(.\Objects\display.obj)

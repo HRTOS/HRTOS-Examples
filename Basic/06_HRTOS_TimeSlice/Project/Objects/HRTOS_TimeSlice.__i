@@ -1,0 +1,1 @@
+"..\Src\HRTOS_TimeSlice.c" LARGE OPTIMIZE (8,SPEED) BROWSE MODDP2 INCDIR(..\..\INC) DEBUG OBJECTEXTEND PRINT(.\Listings\HRTOS_TimeSlice.lst) OBJECT(.\Objects\HRTOS_TimeSlice.obj)

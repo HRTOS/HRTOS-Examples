@@ -1,0 +1,99 @@
+C51 COMPILER V9.60.7.0   HELLO_HRTOS_EVENT                                                 08/11/2026 21:55:43 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE HELLO_HRTOS_EVENT
+OBJECT MODULE PLACED IN .\Objects\Hello_HRTOS_Event.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\Src\Hello_HRTOS_Event.c LARGE OPTIMIZE(8,SPEED) BROWSE MODDP2 INCDIR(
+                    -..\..\INC) DEBUG OBJECTEXTEND PRINT(.\Listings\Hello_HRTOS_Event.lst) OBJECT(.\Objects\Hello_HRTOS_Event.obj)
+
+line level    source
+
+   1          #include "hrtos.h"
+   2          
+   3          /*==================== 配置 ====================*/
+   4          #define TASK_WAIT     1
+   5          #define TASK_SEND     2
+   6          
+   7          #define PRIO_WAIT     5
+   8          #define PRIO_SEND     4
+   9          
+  10          #define STACK_WAIT    5
+  11          #define STACK_SEND    5
+  12          
+  13          #define EVENT_KEY     1
+  14          
+  15          #define TICK_WAIT     50
+  16          #define TICK_SEND     20
+  17          
+  18          /*==================== LED 定义 ====================*/
+  19          sbit LED_WAIT = P1^0;   /* 等待任务指示灯 */
+  20          sbit LED_SEND = P1^1;   /* 发送任务指示灯 */
+  21          
+  22          /*==================== 全局 ====================*/
+  23          static u8 event_count = 0;
+  24          
+  25          /*==================== 等待任务 ====================*/
+  26          static void wait_task(void)
+  27          {
+  28   1          LED_WAIT = 1;   /* 初始灭灯（8051低电平亮可自行改） */
+  29   1      
+  30   1          while (1)
+  31   1          {
+  32   2                      
+  33   2                      if (os_event_wait(EVENT_KEY, TICK_WAIT) == 1)
+  34   2              {
+  35   3                  event_count++;
+  36   3      
+  37   3                  LED_WAIT = ~LED_WAIT;   /* 收到事件 → 翻转LED */
+  38   3              }
+  39   2                      
+  40   2                      os_event_delete(EVENT_KEY);/* 删除事件 */
+  41   2          }
+  42   1      }
+  43          
+  44          /*==================== 发送任务 ====================*/
+  45          static void send_task(void)
+  46          {
+  47   1          LED_SEND = 1;
+  48   1      
+  49   1          while (1)
+  50   1          {
+  51   2              os_event_write(EVENT_KEY);
+  52   2      
+  53   2              LED_SEND = ~LED_SEND;   /* 每次发送 → 翻转LED */
+  54   2      
+C51 COMPILER V9.60.7.0   HELLO_HRTOS_EVENT                                                 08/11/2026 21:55:43 PAGE 2   
+
+  55   2              os_delay(TICK_SEND);
+  56   2          }
+  57   1      }
+  58          
+  59          /*==================== 系统入口 ====================*/
+  60          void hrtos_main(void)
+  61          {
+  62   1          os_event_init(EVENT_KEY);
+  63   1      
+  64   1          if (os_task_create(wait_task, TASK_WAIT, PRIO_WAIT, STACK_WAIT) != 1)
+  65   1          {
+  66   2              while (1) os_delay(20);
+  67   2          }
+  68   1      
+  69   1          if (os_task_create(send_task, TASK_SEND, PRIO_SEND, STACK_SEND) != 1)
+  70   1          {
+  71   2              while (1) os_delay(20);
+  72   2          }
+  73   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    114    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      1    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

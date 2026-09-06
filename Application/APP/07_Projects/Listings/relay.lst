@@ -1,0 +1,129 @@
+C51 COMPILER V9.60.7.0   RELAY                                                             09/05/2026 09:18:50 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE RELAY
+OBJECT MODULE PLACED IN .\Objects\relay.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\05_Control\relay.c LARGE OPTIMIZE(0,SPEED) BROWSE MODDP2 INCDIR(..\..
+                    -\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\relay.lst) OBJECT(.\Objects\relay.obj)
+
+line level    source
+
+   1          
+   2          #include "hrtos.h"
+   3          #include "hrtos_hal.h"
+   4          
+   5          /*
+   6           * =========================================================
+   7           * 继电器 + 4位数码管显示示例
+   8           * ---------------------------------------------------------
+   9           * 功能：
+  10           * 1. 初始化继电器
+  11           * 2. 控制继电器周期性吸合和释放
+  12           * 3. 使用4位数码管显示当前继电器状态
+  13           *
+  14           * 继电器状态：
+  15           *     0000：继电器关闭
+  16           *     0001：继电器打开
+  17           *
+  18           * 工作过程：
+  19           *     关闭  → 等待2秒
+  20           *     打开  → 等待2秒
+  21           *     循环执行
+  22           * =========================================================
+  23           */
+  24          
+  25          
+  26          /*------------------------------------------------
+  27           * 继电器控制任务
+  28           *------------------------------------------------*/
+  29          void task_relay_control(void)
+  30          {
+  31   1          while(1)
+  32   1          {
+  33   2              /* 打开继电器 */
+  34   2              drv_relay_on();
+  35   2      
+  36   2              /* 保持2秒 */
+  37   2              os_delay(200);
+  38   2      
+  39   2              /* 关闭继电器 */
+  40   2              drv_relay_off();
+  41   2      
+  42   2              /* 保持2秒 */
+  43   2              os_delay(200);
+  44   2          }
+  45   1      }
+  46          
+  47          
+  48          /*------------------------------------------------
+  49           * 数码管显示任务
+  50           *
+  51           * 显示当前继电器状态
+  52           *------------------------------------------------*/
+  53          void task_seg_display(void)
+  54          {
+C51 COMPILER V9.60.7.0   RELAY                                                             09/05/2026 09:18:50 PAGE 2   
+
+  55   1          unsigned char state;
+  56   1      
+  57   1          while(1)
+  58   1          {
+  59   2              /* 获取继电器当前状态 */
+  60   2              state = drv_relay_get();
+  61   2      
+  62   2              /*
+  63   2               * 显示继电器状态
+  64   2               *
+  65   2               * 0000：关闭
+  66   2               * 0001：打开
+  67   2               */
+  68   2              drv_seg_display(0, 0);
+  69   2              drv_seg_display(1, 0);
+  70   2              drv_seg_display(2, 0);
+  71   2              drv_seg_display(3, state);
+  72   2          }
+  73   1      }
+  74          
+  75          
+  76          /**
+  77           * @brief 继电器示例初始化
+  78           */
+  79          void hrtos_main(void)
+  80          {
+  81   1          /* 初始化继电器 */
+  82   1          drv_relay_init();
+  83   1      
+  84   1          /* 初始化数码管 */
+  85   1          drv_seg_init();
+  86   1      
+  87   1          /* 创建继电器控制任务 */
+  88   1          os_task_create(
+  89   1              task_relay_control,
+  90   1              2,
+  91   1              2,
+  92   1              4
+  93   1          );
+  94   1      
+  95   1          /* 创建数码管显示任务 */
+  96   1          os_task_create(
+  97   1              task_seg_display,
+  98   1              3,
+  99   1              2,
+ 100   1              4
+ 101   1          );
+ 102   1      }
+ 103          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    118    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      1    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

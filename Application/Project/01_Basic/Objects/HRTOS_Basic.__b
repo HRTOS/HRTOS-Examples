@@ -1,0 +1,18 @@
+TRANSFER
+".\Objects\beep_init.obj",
+".\Objects\beep_off.obj",
+".\Objects\beep_on.obj",
+".\Objects\beep_toggle.obj",
+".\Objects\int0_init.obj",
+".\Objects\int1_init.obj",
+".\Objects\key_init.obj",
+".\Objects\key_scan.obj",
+".\Objects\matrixkey_init.obj",
+".\Objects\matrixkey_scan.obj",
+".\Objects\led_init.obj",
+".\Objects\led_off.obj",
+".\Objects\led_on.obj",
+".\Objects\led_toggle.obj",
+".\Objects\led_write.obj",
+".\Objects\timer1_init.obj" 
+TO ".\Objects\HRTOS_Basic.LIB"

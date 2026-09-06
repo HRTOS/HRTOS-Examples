@@ -1,0 +1,48 @@
+C51 COMPILER V9.60.7.0   RAINDROP_INIT                                                     09/06/2026 11:58:08 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE RAINDROP_INIT
+OBJECT MODULE PLACED IN .\Objects\raindrop_init.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\03_Sensor\雨滴YL-83\raindrop_init.c LARGE OPTIMIZE(0,SPEED) IN
+                    -CDIR(..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\raindrop_init.lst) OBJECT(.\Objects\raindrop_
+                    -init.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          
+   4          
+   5          /*------------------------------------------------
+   6           * 雨滴传感器初始化
+   7           *------------------------------------------------*/
+   8          void drv_raindrop_init(void)
+   9          {
+  10   1          /* DO作为输入使用 */
+  11   1          DRV_RAINDROP_DO = 1;
+  12   1      
+  13   1          /*
+  14   1           * ADC上电
+  15   1           *
+  16   1           * 这里不指定具体通道，
+  17   1           * 在读取AO时再选择通道。
+  18   1           */
+  19   1          ADC_CONTR = ADC_POWER | ADC_SPEED;
+  20   1      
+  21   1          ADC_RES  = 0;
+  22   1          ADC_LOW2 = 0;
+  23   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     12    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

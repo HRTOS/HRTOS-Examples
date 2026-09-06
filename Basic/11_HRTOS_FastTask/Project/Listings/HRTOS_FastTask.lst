@@ -1,0 +1,86 @@
+C51 COMPILER V9.60.7.0   HRTOS_FASTTASK                                                    08/21/2026 23:21:11 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE HRTOS_FASTTASK
+OBJECT MODULE PLACED IN .\Objects\HRTOS_FastTask.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\Src\HRTOS_FastTask.c LARGE OPTIMIZE(8,SPEED) BROWSE MODDP2 INCDIR(..\
+                    -..\INC) DEBUG OBJECTEXTEND PRINT(.\Listings\HRTOS_FastTask.lst) OBJECT(.\Objects\HRTOS_FastTask.obj)
+
+line level    source
+
+   1          #include "hrtos.h"
+   2          
+   3          /*==================== 配置 ====================*/
+   4          #define TASK_FAST_A   16
+   5          #define TASK_FAST_B   17
+   6          
+   7          #define PRIO_FAST     8
+   8          
+   9          #define STACK_FAST_A  5
+  10          #define STACK_FAST_B  5
+  11          
+  12          /*==================== LED 定义 ====================*/
+  13          sbit LED_FAST_A = P1^0;   /* 高速任务A指示灯 */
+  14          sbit LED_FAST_B = P1^1;   /* 高速任务B指示灯 */
+  15          
+  16          /*==================== 全局 ====================*/
+  17          static u16 count_a = 0;
+  18          static u16 count_b = 0;
+  19          
+  20          /*==================== 高速任务A ====================*/
+  21          static void fast_task_a(void)
+  22          {
+  23   1          LED_FAST_A = 1;
+  24   1      
+  25   1          while (1)
+  26   1          {
+  27   2              count_a++;
+  28   2      
+  29   2              /* 高速任务A运行 → 翻转LED */
+  30   2              LED_FAST_A = ~LED_FAST_A;
+  31   2          }
+  32   1      }
+  33          
+  34          /*==================== 高速任务B ====================*/
+  35          static void fast_task_b(void)
+  36          {
+  37   1          LED_FAST_B = 1;
+  38   1      
+  39   1          while (1)
+  40   1          {
+  41   2              count_b++;
+  42   2      
+  43   2              /* 高速任务B运行 → 翻转LED */
+  44   2              LED_FAST_B = ~LED_FAST_B;
+  45   2          }
+  46   1      }
+  47          
+  48          /*==================== 系统入口 ====================*/
+  49          void hrtos_main(void)
+  50          {
+  51   1          if (os_task_create(fast_task_a, TASK_FAST_A, PRIO_FAST, STACK_FAST_A) != 1)
+  52   1          {
+  53   2              while (1);
+  54   2          }
+C51 COMPILER V9.60.7.0   HRTOS_FASTTASK                                                    08/21/2026 23:21:11 PAGE 2   
+
+  55   1      
+  56   1          if (os_task_create(fast_task_b, TASK_FAST_B, PRIO_FAST, STACK_FAST_B) != 1)
+  57   1          {
+  58   2              while (1);
+  59   2          }
+  60   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     89    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      4    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

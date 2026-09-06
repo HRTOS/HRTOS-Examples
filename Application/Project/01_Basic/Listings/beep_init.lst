@@ -1,0 +1,35 @@
+C51 COMPILER V9.60.7.0   BEEP_INIT                                                         08/28/2026 19:52:31 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE BEEP_INIT
+OBJECT MODULE PLACED IN .\Objects\beep_init.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\01_Basic\Buzzer\beep_init.c LARGE OPTIMIZE(0,SPEED) INCDIR(..\
+                    -..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\beep_init.lst) OBJECT(.\Objects\beep_init.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          
+   4          /**
+   5           * @brief  ·äÃùÆ÷³õÊ¼»¯
+   6           */
+   7          void drv_beep_init(void)
+   8          {
+   9   1          beep = BEEP_OFF;
+  10   1      }
+  11          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =      3    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

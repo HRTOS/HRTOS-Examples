@@ -1,0 +1,349 @@
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    08/20/2026  20:49:30  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
+D:\KEIL_V5\C51\BIN\BL51.EXE ..\..\LIB\HRTOS.LIB, .\Objects\HRTOS_Mutex.obj TO .\Objects\Hello_Event PRINT (.\Listings\He
+>> llo_Event.m51) RAMSIZE (256) CODE (0X0000-0XFFFF) XDATA (0X0000-0X03FF)
+
+
+MEMORY MODEL: LARGE
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\HRTOS_Mutex.obj (HRTOS_MUTEX)
+  ..\..\LIB\HRTOS.LIB (TASK_CREATE)
+  ..\..\LIB\HRTOS.LIB (MUTEX_INIT)
+  ..\..\LIB\HRTOS.LIB (MUTEX_LOCK)
+  ..\..\LIB\HRTOS.LIB (MUTEX_UNLOCK)
+  ..\..\LIB\HRTOS.LIB (DELAY)
+  ..\..\LIB\HRTOS.LIB (KERNEL)
+  ..\..\LIB\HRTOS.LIB (OS_WAIT)
+  ..\..\LIB\HRTOS.LIB (WAKE_TASK)
+  ..\..\LIB\HRTOS.LIB (IDLE_TASK)
+  ..\..\LIB\HRTOS.LIB (SLAB_OVERFLOW)
+  ..\..\LIB\HRTOS.LIB (TASK_CLEANUP)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C_STARTUP)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?CLDOPTR)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?CSTPTR)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?CSTOPTR)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?IMUL)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?IILDX)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?ILDIX)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?ILDOPTR)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?ISTOPTR)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?OFFXADD)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C?ICALL)
+  D:\KEIL_V5\C51\LIB\C51L.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  .\Objects\Hello_Event (HRTOS_MUTEX)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+                    0008H     000DH                  *** GAP ***
+            DATA    0015H     0001H     ABSOLUTE     
+                    0016H     000AH                  *** GAP ***
+            BIT     0020H.0   0001H.5   UNIT         ?BI?KERNEL
+                    0021H.5   000EH.3                *** GAP ***
+            DATA    0030H     0001H     ABSOLUTE     
+            DATA    0031H     0001H     ABSOLUTE     
+            DATA    0032H     0001H     ABSOLUTE     
+            DATA    0033H     0001H     ABSOLUTE     
+            DATA    0034H     0001H     ABSOLUTE     
+            DATA    0035H     0005H     ABSOLUTE     
+            DATA    003AH     0007H     ABSOLUTE     
+            DATA    0041H     0001H     ABSOLUTE     
+            DATA    0042H     003EH     ABSOLUTE     
+                    0080H     005BH                  *** GAP ***
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  08/20/2026  20:49:30  PAGE 2
+
+
+            IDATA   00DBH     0006H     ABSOLUTE     
+            IDATA   00E1H     0001H     ABSOLUTE     
+            IDATA   00E2H     0001H     ABSOLUTE     
+            IDATA   00E3H     0001H     ABSOLUTE     
+            IDATA   00E4H     0001H     ABSOLUTE     
+            IDATA   00E5H     0001H     ABSOLUTE     
+            IDATA   00E6H     0001H     ABSOLUTE     
+            IDATA   00E7H     0001H     ABSOLUTE     
+            IDATA   00E8H     0001H     UNIT         ?STACK
+
+            * * * * * * *  X D A T A   M E M O R Y  * * * * * * *
+            XDATA   0000H     00DCH     UNIT         ?XD?KERNEL
+            XDATA   00DCH     000AH     UNIT         ?XD?_OS_MUTEX_UNLOCK?MUTEX_UNLOCK
+            XDATA   00E6H     0009H     UNIT         ?XD?_OS_TASK_CREATE?TASK_CREATE
+            XDATA   00EFH     0008H     UNIT         ?XD?_OS_MEMSET?KERNEL
+            XDATA   00F7H     0005H     UNIT         ?XD?_OS_MUTEX_LOCK?MUTEX_LOCK
+            XDATA   00FCH     0005H     UNIT         ?XD?_OS_WAIT?OS_WAIT
+            XDATA   0101H     0005H     UNIT         ?XD?_OS_TASK_CLEANUP?TASK_CLEANUP
+            XDATA   0106H     0004H     UNIT         ?XD?_OS_MUTEX_INIT?MUTEX_INIT
+            XDATA   010AH     0003H     UNIT         ?XD?_WAKE_TASK?WAKE_TASK
+            XDATA   010DH     0003H     UNIT         ?XD?IDLE_TASK
+            XDATA   0110H     0003H     UNIT         ?XD?SLAB_OVERFLOW
+            XDATA   0113H     0002H     UNIT         ?XD?_OS_DELAY?DELAY
+            XDATA   0115H     0001H     UNIT         ?XD?HRTOS_MUTEX
+            XDATA   0116H     0001H     UNIT         ?XD?OS_IDLE_TASK?IDLE_TASK
+                    0117H     00E9H                  *** GAP ***
+            XDATA   0200H     0010H     ABSOLUTE     
+            XDATA   0210H     0010H     ABSOLUTE     
+            XDATA   0220H     0002H     ABSOLUTE     
+                    0222H     000EH                  *** GAP ***
+            XDATA   0230H     000AH     ABSOLUTE     
+                    023AH     0006H                  *** GAP ***
+            XDATA   0240H     00D0H     ABSOLUTE     
+            XDATA   0310H     0004H     ABSOLUTE     
+                    0314H     000CH                  *** GAP ***
+            XDATA   0320H     0010H     ABSOLUTE     
+            XDATA   0330H     0001H     ABSOLUTE     
+            XDATA   0331H     0004H     ABSOLUTE     
+            XDATA   0335H     0002H     ABSOLUTE     
+            XDATA   0337H     0002H     ABSOLUTE     
+            XDATA   0339H     0002H     ABSOLUTE     
+            XDATA   033BH     0002H     ABSOLUTE     
+            XDATA   033DH     0002H     ABSOLUTE     
+            XDATA   033FH     0001H     ABSOLUTE     
+            XDATA   0340H     0002H     ABSOLUTE     
+            XDATA   0342H     0002H     ABSOLUTE     
+            XDATA   0344H     0012H     ABSOLUTE     
+            XDATA   0356H     0001H     ABSOLUTE     
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0008H     ABSOLUTE     
+            CODE    000BH     0008H     ABSOLUTE     
+            CODE    0013H     0008H     ABSOLUTE     
+            CODE    001BH     0008H     ABSOLUTE     
+            CODE    0023H     0008H     ABSOLUTE     
+            CODE    002BH     0008H     ABSOLUTE     
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  08/20/2026  20:49:30  PAGE 3
+
+
+            CODE    0033H     0008H     ABSOLUTE     
+            CODE    003BH     0008H     ABSOLUTE     
+            CODE    0043H     0008H     ABSOLUTE     
+            CODE    004BH     0008H     ABSOLUTE     
+            CODE    0053H     0008H     ABSOLUTE     
+            CODE    005BH     0008H     ABSOLUTE     
+            CODE    0063H     0008H     ABSOLUTE     
+            CODE    006BH     0008H     ABSOLUTE     
+            CODE    0073H     0008H     ABSOLUTE     
+            CODE    007BH     0008H     ABSOLUTE     
+            CODE    0083H     0008H     ABSOLUTE     
+            CODE    008BH     0008H     ABSOLUTE     
+            CODE    0093H     0008H     ABSOLUTE     
+            CODE    009BH     0008H     ABSOLUTE     
+            CODE    00A3H     0008H     ABSOLUTE     
+            CODE    00ABH     0008H     ABSOLUTE     
+            CODE    00B3H     0008H     ABSOLUTE     
+            CODE    00BBH     0008H     ABSOLUTE     
+            CODE    00C3H     0008H     ABSOLUTE     
+            CODE    00CBH     0008H     ABSOLUTE     
+            CODE    00D3H     0008H     ABSOLUTE     
+            CODE    00DBH     0008H     ABSOLUTE     
+            CODE    00E3H     0008H     ABSOLUTE     
+            CODE    00EBH     0008H     ABSOLUTE     
+            CODE    00F3H     0008H     ABSOLUTE     
+            CODE    00FBH     000FH     ABSOLUTE     
+            CODE    010AH     0B99H     UNIT         ?PR?OS_DISPATCH_KERNEL?KERNEL
+            CODE    0CA3H     03B9H     UNIT         ?PR?_OS_TASK_CLEANUP?TASK_CLEANUP
+            CODE    105CH     0389H     UNIT         ?PR?_OS_TASK_CREATE?TASK_CREATE
+            CODE    13E5H     029FH     UNIT         ?PR?_OS_MUTEX_LOCK?MUTEX_LOCK
+            CODE    1684H     026BH     UNIT         ?PR?_OS_WAIT?OS_WAIT
+            CODE    18EFH     0267H     UNIT         ?PR?_OS_MUTEX_UNLOCK?MUTEX_UNLOCK
+            CODE    1B56H     0161H     UNIT         ?PR?OS_IDLE_TASK?IDLE_TASK
+            CODE    1CB7H     0148H     UNIT         ?PR?_WAKE_TASK?WAKE_TASK
+            CODE    1DFFH     0116H     UNIT         ?C?LIB_CODE
+            CODE    1F15H     00B5H     UNIT         ?PR?MAIN?KERNEL
+            CODE    1FCAH     0090H     UNIT         ?PR?_OS_MUTEX_INIT?MUTEX_INIT
+            CODE    205AH     008CH     UNIT         ?C_C51STARTUP
+            CODE    20E6H     005DH     UNIT         ?PR?_OS_MEMSET?KERNEL
+            CODE    2143H     003DH     UNIT         ?PR?HRTOS_MAIN?HRTOS_MUTEX
+            CODE    2180H     003BH     UNIT         ?PR?OS_INTERRUPT_INIT?KERNEL
+            CODE    21BBH     0032H     UNIT         ?PR?_OS_DELAY?DELAY
+            CODE    21EDH     0027H     UNIT         ?PR?LOW_TASK?HRTOS_MUTEX
+            CODE    2214H     0021H     UNIT         ?PR?HIGH_TASK?HRTOS_MUTEX
+            CODE    2235H     001FH     UNIT         ?PR?OS_SLAB_OVERFLOW?SLAB_OVERFLOW
+            CODE    2254H     0016H     UNIT         ?PR?OS_INTERRUPT_EXIT?KERNEL
+            CODE    226AH     0005H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\Hello_Event (HRTOS_MUTEX)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  08/20/2026  20:49:30  PAGE 4
+
+
+  +--> ?PR?MAIN?KERNEL
+  +--> ?C_INITSEG
+
+?PR?MAIN?KERNEL
+  +--> ?PR?_OS_MEMSET?KERNEL
+  +--> ?PR?OS_IDLE_TASK?IDLE_TASK
+  +--> ?PR?_OS_TASK_CREATE?TASK_CREATE
+  +--> ?PR?OS_INTERRUPT_EXIT?KERNEL
+  +--> ?PR?OS_SLAB_OVERFLOW?SLAB_OVERFLOW
+
+?PR?OS_IDLE_TASK?IDLE_TASK
+  +--> ?PR?HRTOS_MAIN?HRTOS_MUTEX
+  +--> ?PR?_OS_TASK_CLEANUP?TASK_CLEANUP
+
+?PR?HRTOS_MAIN?HRTOS_MUTEX
+  +--> ?PR?_OS_MUTEX_INIT?MUTEX_INIT
+  +--> ?PR?LOW_TASK?HRTOS_MUTEX
+  +--> ?PR?_OS_TASK_CREATE?TASK_CREATE
+  +--> ?PR?HIGH_TASK?HRTOS_MUTEX
+
+?PR?LOW_TASK?HRTOS_MUTEX
+  +--> ?PR?_OS_MUTEX_LOCK?MUTEX_LOCK
+  +--> ?PR?_OS_DELAY?DELAY
+  +--> ?PR?_OS_MUTEX_UNLOCK?MUTEX_UNLOCK
+
+?PR?_OS_MUTEX_LOCK?MUTEX_LOCK
+  +--> ?PR?_OS_WAIT?OS_WAIT
+
+?PR?_OS_DELAY?DELAY
+  +--> ?PR?_OS_WAIT?OS_WAIT
+
+?PR?_OS_MUTEX_UNLOCK?MUTEX_UNLOCK
+  +--> ?PR?_WAKE_TASK?WAKE_TASK
+
+?PR?HIGH_TASK?HRTOS_MUTEX
+  +--> ?PR?_OS_DELAY?DELAY
+  +--> ?PR?_OS_MUTEX_LOCK?MUTEX_LOCK
+  +--> ?PR?_OS_MUTEX_UNLOCK?MUTEX_UNLOCK
+
+?PR?OS_INTERRUPT_EXIT?KERNEL
+  +--> ?PR?OS_INTERRUPT_INIT?KERNEL
+  +--> ?PR?OS_DISPATCH_KERNEL?KERNEL
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\Hello_Event (HRTOS_MUTEX)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        HRTOS_MUTEX
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  B:0090H.0       PUBLIC        LED_LOW
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  08/20/2026  20:49:30  PAGE 5
+
+
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:2214H         SYMBOL        high_task
+  C:2143H         PUBLIC        hrtos_main
+  X:0115H         SYMBOL        mutex_count
+  B:0090H.1       PUBLIC        LED_HIGH
+  D:00C8H         PUBLIC        T2CON
+  C:21EDH         SYMBOL        low_task
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          LOW_TASK
+  C:21EDH         LINE#         26
+  C:21EDH         LINE#         27
+  C:21EDH         LINE#         28
+  C:21EFH         LINE#         30
+  C:21EFH         LINE#         31
+  C:21EFH         LINE#         35
+  C:21F7H         LINE#         36
+  C:21F7H         LINE#         37
+  C:21FDH         LINE#         42
+  C:21FFH         LINE#         44
+  C:2206H         LINE#         49
+  C:220BH         LINE#         50
+  C:220BH         LINE#         52
+  C:2212H         LINE#         53
+  -------         ENDPROC       LOW_TASK
+  -------         PROC          HIGH_TASK
+  C:2214H         LINE#         57
+  C:2214H         LINE#         58
+  C:2214H         LINE#         59
+  C:2216H         LINE#         61
+  C:2216H         LINE#         62
+  C:2216H         LINE#         66
+  C:221DH         LINE#         74
+  C:2225H         LINE#         75
+  C:2225H         LINE#         79
+  C:2227H         LINE#         84
+  C:222EH         LINE#         89
+  C:2233H         LINE#         90
+  C:2233H         LINE#         91
+  -------         ENDPROC       HIGH_TASK
+  -------         PROC          HRTOS_MAIN
+  C:2143H         LINE#         95
+  C:2143H         LINE#         96
+  C:2143H         LINE#         97
+  C:214DH         LINE#         98
+  C:214DH         LINE#         99
+  C:214FH         LINE#         100
+  C:214FH         LINE#         102
+  C:2165H         LINE#         103
+  C:2165H         LINE#         104
+  C:2167H         LINE#         105
+  C:2167H         LINE#         107
+  C:217DH         LINE#         108
+  C:217DH         LINE#         109
+  C:217FH         LINE#         110
+  C:217FH         LINE#         111
+  -------         ENDPROC       HRTOS_MAIN
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  08/20/2026  20:49:30  PAGE 6
+
+
+  -------         ENDMOD        HRTOS_MUTEX
+
+  -------         MODULE        ?C?CLDOPTR
+  C:1DFFH         PUBLIC        ?C?CLDOPTR
+  -------         ENDMOD        ?C?CLDOPTR
+
+  -------         MODULE        ?C?CSTPTR
+  C:1E2CH         PUBLIC        ?C?CSTPTR
+  -------         ENDMOD        ?C?CSTPTR
+
+  -------         MODULE        ?C?CSTOPTR
+  C:1E3EH         PUBLIC        ?C?CSTOPTR
+  -------         ENDMOD        ?C?CSTOPTR
+
+  -------         MODULE        ?C?IMUL
+  C:1E60H         PUBLIC        ?C?IMUL
+  -------         ENDMOD        ?C?IMUL
+
+  -------         MODULE        ?C?IILDX
+  C:1E72H         PUBLIC        ?C?IILDX
+  -------         ENDMOD        ?C?IILDX
+
+  -------         MODULE        ?C?ILDIX
+  C:1E88H         PUBLIC        ?C?ILDIX
+  -------         ENDMOD        ?C?ILDIX
+
+  -------         MODULE        ?C?ILDOPTR
+  C:1E9EH         PUBLIC        ?C?ILDOPTR
+  -------         ENDMOD        ?C?ILDOPTR
+
+  -------         MODULE        ?C?ISTOPTR
+  C:1ED6H         PUBLIC        ?C?ISTOPTR
+  -------         ENDMOD        ?C?ISTOPTR
+
+  -------         MODULE        ?C?OFFXADD
+  C:1F03H         PUBLIC        ?C?OFFXADD
+  -------         ENDMOD        ?C?OFFXADD
+
+  -------         MODULE        ?C?ICALL
+  C:1F0FH         PUBLIC        ?C?ICALL
+  C:1F13H         PUBLIC        ?C?ICALL2
+  -------         ENDMOD        ?C?ICALL
+
+Program Size: data=104.5 xdata=590 code=8815
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

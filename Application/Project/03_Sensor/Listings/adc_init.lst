@@ -1,0 +1,63 @@
+C51 COMPILER V9.60.7.0   ADC_INIT                                                          09/01/2026 21:43:28 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE ADC_INIT
+OBJECT MODULE PLACED IN .\Objects\adc_init.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\03_Sensor\ADC\adc_init.c LARGE OPTIMIZE(0,SPEED) INCDIR(..\..\
+                    -Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\adc_init.lst) OBJECT(.\Objects\adc_init.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          
+   4          
+   5          /*------------------------------------------------
+   6           * ADC当前通道
+   7           *
+   8           * 当前示例使用P1.0
+   9           *------------------------------------------------*/
+  10          unsigned char drv_adc_channel = 0;
+  11          
+  12          
+  13          /*------------------------------------------------
+  14           * ADC转换结果
+  15           *------------------------------------------------*/
+  16          unsigned int drv_adc_value = 0;
+  17          
+  18          
+  19          /*------------------------------------------------
+  20           * 功能：ADC初始化
+  21           * 说明：配置P1.0为ADC输入并启动ADC转换
+  22           *------------------------------------------------*/
+  23          void drv_adc_init(void)
+  24          {
+  25   1          P1ASF = 0x01;
+  26   1      
+  27   1          ADC_RES = 0;
+  28   1      
+  29   1          ADC_CONTR = DRV_ADC_POWER |
+  30   1                      DRV_ADC_SPEEDLL |
+  31   1                      DRV_ADC_START |
+  32   1                      drv_adc_channel;
+  33   1      
+  34   1          /*
+  35   1           * ADC上电及启动转换等待
+  36   1           * 原程序Delay(2)
+  37   1           */
+  38   1          os_delay_ms(2);
+  39   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     21    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      3    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,9 @@
+TRANSFER
+".\Objects\24c02_read.obj",
+".\Objects\24c02_write.obj",
+".\Objects\i2c_read_byte.obj",
+".\Objects\i2c_start.obj",
+".\Objects\i2c_stop.obj",
+".\Objects\i2c_write_byte.obj",
+".\Objects\i2c_delay.obj" 
+TO ".\Objects\HRTOS_Storage.LIB"

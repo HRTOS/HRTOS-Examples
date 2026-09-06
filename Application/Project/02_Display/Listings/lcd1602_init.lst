@@ -1,0 +1,42 @@
+C51 COMPILER V9.60.7.0   LCD1602_INIT                                                      08/28/2026 20:45:42 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE LCD1602_INIT
+OBJECT MODULE PLACED IN .\Objects\lcd1602_init.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\02_Display\LCD1602\lcd1602_init.c LARGE OPTIMIZE(0,SPEED) INCD
+                    -IR(..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\lcd1602_init.lst) OBJECT(.\Objects\lcd1602_init
+                    -.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          
+   4          /**
+   5           * @brief LCD初始化
+   6           */
+   7          void drv_lcd1602_init(void)
+   8          {
+   9   1          LCD_RW = 0;
+  10   1      
+  11   1          drv_lcd1602_write_cmd(0x38);   //8位数据，两行显示
+  12   1          drv_lcd1602_write_cmd(0x0c);   //显示开，光标关闭
+  13   1          drv_lcd1602_write_cmd(0x06);   //地址自动加1
+  14   1          drv_lcd1602_write_cmd(0x01);   //清屏
+  15   1              
+  16   1              os_delay_ms(2);
+  17   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     28    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

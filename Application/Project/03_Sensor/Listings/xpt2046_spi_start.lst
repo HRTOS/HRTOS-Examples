@@ -1,0 +1,39 @@
+C51 COMPILER V9.60.7.0   XPT2046_SPI_START                                                 09/06/2026 11:04:26 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE XPT2046_SPI_START
+OBJECT MODULE PLACED IN .\Objects\xpt2046_spi_start.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\03_Sensor\¹âÃô\xpt2046_spi_start.c LARGE OPTIMIZE(0,SPEED) INC
+                    -DIR(..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\xpt2046_spi_start.lst) OBJECT(.\Objects\xpt204
+                    -6_spi_start.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          
+   4          /*------------------------------------------------
+   5           * XPT2046 SPI¿ªÊ¼
+   6           *------------------------------------------------*/
+   7          static void drv_xpt2046_spi_start(void)
+   8          {
+   9   1          XPT2046_CLK = 0;
+  10   1          XPT2046_CS  = 1;
+  11   1          XPT2046_DIN = 1;
+  12   1          XPT2046_CLK = 1;
+  13   1          XPT2046_CS  = 0;
+  14   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     11    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

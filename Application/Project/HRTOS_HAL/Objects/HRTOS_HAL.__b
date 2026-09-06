@@ -1,0 +1,8 @@
+TRANSFER
+"..\01_Basic\Objects\HRTOS_Basic.LIB",
+"..\02_Display\Objects\HRTOS_Display.LIB",
+"..\03_Sensor\Objects\HRTOS_Sensor.LIB",
+"..\04_Communication\Objects\HRTOS_Communication.LIB",
+"..\05_Control\Objects\HRTOS_Control.LIB",
+"..\06_Storage\Objects\HRTOS_Storage.LIB" 
+TO ".\Objects\HRTOS_HAL.LIB"

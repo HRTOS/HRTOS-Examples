@@ -1,0 +1,36 @@
+C51 COMPILER V9.60.7.0   OLED_ON                                                           08/28/2026 20:45:44 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE OLED_ON
+OBJECT MODULE PLACED IN .\Objects\oled_on.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\02_Display\OLED\oled_on.c LARGE OPTIMIZE(0,SPEED) INCDIR(..\..
+                    -\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\oled_on.lst) OBJECT(.\Objects\oled_on.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          
+   4          /*------------------------------------------------
+   5           * OLEDÏÔÊ¾¿ªÆô
+   6           *------------------------------------------------*/
+   7          void drv_oled_on(void)
+   8          {
+   9   1          drv_oled_write_command(0x8D);
+  10   1          drv_oled_write_command(0x14);
+  11   1          drv_oled_write_command(0xAF);
+  12   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     16    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

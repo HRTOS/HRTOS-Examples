@@ -1,0 +1,34 @@
+C51 COMPILER V9.60.7.0   OLED_CLEAR                                                        08/28/2026 20:45:43 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE OLED_CLEAR
+OBJECT MODULE PLACED IN .\Objects\oled_clear.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\02_Display\OLED\oled_clear.c LARGE OPTIMIZE(0,SPEED) INCDIR(..
+                    -\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\oled_clear.lst) OBJECT(.\Objects\oled_clear.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          
+   4          /*------------------------------------------------
+   5           * OLED«Â∆¡
+   6           *------------------------------------------------*/
+   7          void drv_oled_clear(void)
+   8          {
+   9   1          drv_oled_fill(0x00);
+  10   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =      6    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

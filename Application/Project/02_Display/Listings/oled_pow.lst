@@ -1,0 +1,45 @@
+C51 COMPILER V9.60.7.0   OLED_POW                                                          08/28/2026 20:45:44 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE OLED_POW
+OBJECT MODULE PLACED IN .\Objects\oled_pow.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\02_Display\OLED\oled_pow.c LARGE OPTIMIZE(0,SPEED) INCDIR(..\.
+                    -.\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\oled_pow.lst) OBJECT(.\Objects\oled_pow.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          /*------------------------------------------------
+   4           * 功能：计算整数幂
+   5           * 参数：m - 底数
+   6           *       n - 指数
+   7           * 返回：m的n次方
+   8           *------------------------------------------------*/
+   9          unsigned long drv_oled_pow(unsigned char m, unsigned char n)
+  10          {
+  11   1          unsigned long result;
+  12   1      
+  13   1          result = 1;
+  14   1      
+  15   1          while(n--)
+  16   1          {
+  17   2              result *= m;
+  18   2          }
+  19   1      
+  20   1          return result;
+  21   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     73    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      6    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

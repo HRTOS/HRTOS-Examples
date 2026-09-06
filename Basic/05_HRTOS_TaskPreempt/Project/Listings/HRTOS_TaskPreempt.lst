@@ -1,0 +1,136 @@
+C51 COMPILER V9.60.7.0   HRTOS_TASKPREEMPT                                                 08/20/2026 20:47:50 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE HRTOS_TASKPREEMPT
+OBJECT MODULE PLACED IN .\Objects\HRTOS_TaskPreempt.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\Src\HRTOS_TaskPreempt.c LARGE OPTIMIZE(8,SPEED) BROWSE MODDP2 INCDIR(
+                    -..\..\INC) DEBUG OBJECTEXTEND PRINT(.\Listings\HRTOS_TaskPreempt.lst) OBJECT(.\Objects\HRTOS_TaskPreempt.obj)
+
+line level    source
+
+   1          #include "hrtos.h"
+   2          
+   3          /*==================== 配置 ====================*/
+   4          #define TASK_LOW      1
+   5          #define TASK_HIGH     2
+   6          #define TASK_SEND     3
+   7          
+   8          #define PRIO_LOW      3
+   9          #define PRIO_HIGH     6
+  10          #define PRIO_SEND     4
+  11          
+  12          #define STACK_LOW     5
+  13          #define STACK_HIGH    5
+  14          #define STACK_SEND    5
+  15          
+  16          #define EVENT_HIGH    1
+  17          
+  18          #define TICK_SEND     100
+  19          
+  20          /*==================== LED 定义 ====================*/
+  21          sbit LED_LOW  = P1^0;   /* 低优先级任务指示灯 */
+  22          sbit LED_HIGH = P1^1;   /* 高优先级任务指示灯 */
+  23          sbit LED_SEND = P1^2;   /* 发送任务指示灯 */
+  24          
+  25          /*==================== 全局 ====================*/
+  26          static u8 high_count = 0;
+  27          
+  28          /*==================== 低优先级任务 ====================*/
+  29          static void low_task(void)
+  30          {
+  31   1          LED_LOW = 1;
+  32   1      
+  33   1          while (1)
+  34   1          {
+  35   2              /*
+  36   2               * 低优先级任务持续运行。
+  37   2               * 当高优先级任务变为就绪状态时，
+  38   2               * 当前任务会立即被高优先级任务抢占。
+  39   2               */
+  40   2              LED_LOW = ~LED_LOW;
+  41   2          }
+  42   1      }
+  43          
+  44          /*==================== 高优先级任务 ====================*/
+  45          static void high_task(void)
+  46          {
+  47   1          LED_HIGH = 1;
+  48   1      
+  49   1          while (1)
+  50   1          {
+  51   2              /*
+  52   2               * 等待事件。
+  53   2               * 收到事件后，高优先级任务立即参与调度。
+  54   2               */
+C51 COMPILER V9.60.7.0   HRTOS_TASKPREEMPT                                                 08/20/2026 20:47:50 PAGE 2   
+
+  55   2              if (os_event_wait(EVENT_HIGH, 0) == 1)
+  56   2              {
+  57   3                  high_count++;
+  58   3      
+  59   3                  /* 高优先级任务运行 → 翻转LED */
+  60   3                  LED_HIGH = ~LED_HIGH;
+  61   3      
+  62   3                  /*
+  63   3                   * 延时后再次进入等待，
+  64   3                   * 使低优先级任务重新获得CPU。
+  65   3                   */
+  66   3                  os_delay(20);
+  67   3              }
+  68   2          }
+  69   1      }
+  70          
+  71          /*==================== 事件发送任务 ====================*/
+  72          static void send_task(void)
+  73          {
+  74   1          LED_SEND = 1;
+  75   1      
+  76   1          while (1)
+  77   1          {
+  78   2              /*
+  79   2               * 发送事件，使高优先级任务变为就绪状态。
+  80   2               */
+  81   2              os_event_write(EVENT_HIGH);
+  82   2      
+  83   2              LED_SEND = ~LED_SEND;
+  84   2      
+  85   2              os_delay(TICK_SEND);
+  86   2          }
+  87   1      }
+  88          
+  89          /*==================== 系统入口 ====================*/
+  90          void hrtos_main(void)
+  91          {
+  92   1          os_event_init(EVENT_HIGH);
+  93   1      
+  94   1          if (os_task_create(low_task, TASK_LOW, PRIO_LOW, STACK_LOW) != 1)
+  95   1          {
+  96   2              while (1) ;
+  97   2          }
+  98   1      
+  99   1          if (os_task_create(high_task, TASK_HIGH, PRIO_HIGH, STACK_HIGH) != 1)
+ 100   1          {
+ 101   2              while (1) ;
+ 102   2          }
+ 103   1      
+ 104   1          if (os_task_create(send_task, TASK_SEND, PRIO_SEND, STACK_SEND) != 1)
+ 105   1          {
+ 106   2              while (1) ;
+ 107   2          }
+ 108   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    132    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      1    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+C51 COMPILER V9.60.7.0   HRTOS_TASKPREEMPT                                                 08/20/2026 20:47:50 PAGE 3   
+
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

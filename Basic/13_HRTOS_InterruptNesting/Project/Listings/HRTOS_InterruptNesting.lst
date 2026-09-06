@@ -1,0 +1,152 @@
+C51 COMPILER V9.60.7.0   HRTOS_INTERRUPTNESTING                                            08/21/2026 22:22:55 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE HRTOS_INTERRUPTNESTING
+NO OBJECT MODULE REQUESTED
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\Src\HRTOS_InterruptNesting.c LARGE OPTIMIZE(0,SPEED) BROWSE MODDP2 IN
+                    -CDIR(..\..\INC) DEBUG OBJECTEXTEND PRINT(.\Listings\HRTOS_InterruptNesting.lst) SRC(.\Objects\HRTOS_InterruptNesting.SRC
+                    -)
+
+line level    source
+
+   1          #include "hrtos.h"
+   2          
+   3          /*==================== 配置 ====================*/
+   4          #define TASK_A        1
+   5          #define TASK_B        2
+   6          
+   7          #define TASK_T1       0
+   8          
+   9          #define PRIO_TASK     4
+  10          #define PRIO_T1       9
+  11          #define PRIO_T1_NEST  10
+  12          
+  13          #define STACK_TASK_A  5
+  14          #define STACK_TASK_B  5
+  15          #define STACK_T1      0
+  16          
+  17          #define TICK_TASK     20
+  18          
+  19          /*==================== LED 定义 ====================*/
+  20          sbit LED_A = P1^0;   /* 任务A指示灯 */
+  21          sbit LED_B = P1^1;   /* 任务B指示灯 */
+  22          sbit LED_T1 = P1^2;  /* T1中断指示灯 */
+  23          
+  24          /*==================== 全局 ====================*/
+  25          static u16 count_a = 0;
+  26          static u16 count_b = 0;
+  27          static u16 xdata count_t1 = 0;
+  28          
+  29          /*==================== 普通任务A ====================*/
+  30          static void task_a(void)
+  31          {
+  32   1          LED_A = 1;
+  33   1      
+  34   1          while (1)
+  35   1          {
+  36   2              count_a++;
+  37   2      
+  38   2              LED_A = ~LED_A;
+  39   2      
+  40   2              os_delay(TICK_TASK);
+  41   2          }
+  42   1      }
+  43          
+  44          /*==================== 普通任务B ====================*/
+  45          static void task_b(void)
+  46          {
+  47   1          LED_B = 1;
+  48   1      
+  49   1          while (1)
+  50   1          {
+  51   2              count_b++;
+  52   2      
+  53   2              LED_B = ~LED_B;
+C51 COMPILER V9.60.7.0   HRTOS_INTERRUPTNESTING                                            08/21/2026 22:22:55 PAGE 2   
+
+  54   2      
+  55   2              os_delay(TICK_TASK);
+  56   2          }
+  57   1      }
+  58          
+  59          void Timer1_Init(void)
+  60          {
+  61   1          TMOD &= 0x0F;
+  62   1          TMOD |= 0x10;     // T1模式1
+  63   1      
+  64   1          TH1 = 0xFC;
+  65   1          TL1 = 0x18;       // 12MHz 1ms
+  66   1      
+  67   1          TF1 = 0;
+  68   1          ET1 = 1;
+  69   1          PT1 = 1;          // T1高优先级
+  70   1          TR1 = 1;
+  71   1      }
+  72          
+  73          /*==================== T1中断处理 ====================*/
+  74          static void t1_isr(void)
+  75          {
+  76   1          count_t1++;
+  77   1              
+  78   1              TH1 = 0xFC;
+  79   1          TL1 = 0x18;       // 12MHz 1ms
+  80   1      
+  81   1          /*
+  82   1           * T1进入中断
+  83   1           */
+  84   1          LED_T1 = ~LED_T1;
+  85   1      
+  86   1          /*
+  87   1           * 中断处理完成
+  88   1           */
+  89   1          os_interrupt_exit();
+  90   1      }
+  91          
+  92          /*==================== 系统入口 ====================*/
+  93          void hrtos_main(void)
+  94          {
+  95   1      
+  96   1          Timer1_Init();
+  97   1              
+  98   1              /*
+  99   1           * 两个同优先级普通任务
+ 100   1           */
+ 101   1          if (os_task_create(task_a, TASK_A, PRIO_TASK, STACK_TASK_A) != 1)
+ 102   1          {
+ 103   2              while (1);
+ 104   2          }
+ 105   1      
+ 106   1          if (os_task_create(task_b, TASK_B, PRIO_TASK, STACK_TASK_B) != 1)
+ 107   1          {
+ 108   2              while (1);
+ 109   2          }
+ 110   1      
+ 111   1          /*
+ 112   1           * T1普通中断任务
+ 113   1           * 优先级9
+ 114   1           */
+ 115   1          os_task_create((unsigned int)t1_isr, TASK_T1, PRIO_T1, STACK_T1);
+C51 COMPILER V9.60.7.0   HRTOS_INTERRUPTNESTING                                            08/21/2026 22:22:55 PAGE 3   
+
+ 116   1      
+ 117   1          /*
+ 118   1           * T1嵌套中断任务
+ 119   1           * 优先级10
+ 120   1           */
+ 121   1          os_task_create((unsigned int)t1_isr, TASK_T1, PRIO_T1_NEST, STACK_T1);
+ 122   1      
+ 123   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    209    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      6    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
