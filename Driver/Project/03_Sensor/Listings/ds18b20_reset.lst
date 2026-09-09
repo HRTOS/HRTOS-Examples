@@ -1,0 +1,61 @@
+C51 COMPILER V9.60.7.0   DS18B20_RESET                                                     09/09/2026 12:50:07 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE DS18B20_RESET
+OBJECT MODULE PLACED IN .\Objects\ds18b20_reset.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\03_Sensor\DS18B20\ds18b20_reset.c LARGE OPTIMIZE(0,SPEED) INCD
+                    -IR(..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\ds18b20_reset.lst) OBJECT(.\Objects\ds18b20_res
+                    -et.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          /*------------------------------------------------
+   4           * DS18B20复位
+   5           *
+   6           * 功能：
+   7           * 主机发送复位脉冲，并等待DS18B20响应。
+   8           *
+   9           * 注意：
+  10           * 本函数属于严格时序操作，
+  11           * 调用时需要关闭总中断。
+  12           *------------------------------------------------*/
+  13          void drv_ds18b20_reset(void)
+  14          {
+  15   1          unsigned int i;
+  16   1      
+  17   1          DS18B20_DATA = 0;
+  18   1      
+  19   1          i = 70;
+  20   1      
+  21   1          while(i > 0)
+  22   1          {
+  23   2              i--;
+  24   2          }
+  25   1      
+  26   1          DS18B20_DATA = 1;
+  27   1      
+  28   1          i = 5;
+  29   1      
+  30   1          while(DS18B20_DATA)
+  31   1          {
+  32   2              i--;
+  33   2                      os_delay_ms(1);
+  34   2                      if(!i)break;
+  35   2          }
+  36   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     88    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      2    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

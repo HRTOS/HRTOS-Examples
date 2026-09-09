@@ -1,0 +1,63 @@
+C51 COMPILER V9.60.7.0   DS18B20_READ_BIT                                                  09/09/2026 12:50:07 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE DS18B20_READ_BIT
+OBJECT MODULE PLACED IN .\Objects\ds18b20_read_bit.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\03_Sensor\DS18B20\ds18b20_read_bit.c LARGE OPTIMIZE(0,SPEED) I
+                    -NCDIR(..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\ds18b20_read_bit.lst) OBJECT(.\Objects\ds18b
+                    -20_read_bit.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          
+   4          /*------------------------------------------------
+   5           * 读取一个数据位
+   6           *
+   7           * 返回：
+   8           * 0 - 数据位为0
+   9           * 1 - 数据位为1
+  10           *
+  11           * 注意：
+  12           * DS18B20单总线严格时序。
+  13           *------------------------------------------------*/
+  14          unsigned char drv_ds18b20_read_bit(void)
+  15          {
+  16   1          unsigned int i;
+  17   1          unsigned char _data;
+  18   1      
+  19   1          DS18B20_DATA = 0;
+  20   1      
+  21   1          i++;
+  22   1      
+  23   1          DS18B20_DATA = 1;
+  24   1      
+  25   1          i++;
+  26   1          i++;
+  27   1      
+  28   1          _data = DS18B20_DATA;
+  29   1      
+  30   1          i = 8;
+  31   1      
+  32   1          while(i > 0)
+  33   1          {
+  34   2              i--;
+  35   2          }
+  36   1      
+  37   1          return _data;
+  38   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     99    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      3    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

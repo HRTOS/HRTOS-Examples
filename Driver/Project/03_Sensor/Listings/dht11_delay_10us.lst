@@ -1,0 +1,49 @@
+C51 COMPILER V9.60.7.0   DHT11_DELAY_10US                                                  09/09/2026 12:50:06 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE DHT11_DELAY_10US
+OBJECT MODULE PLACED IN .\Objects\dht11_delay_10us.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\..\Src\03_Sensor\DHT11\dht11_delay_10us.c LARGE OPTIMIZE(0,SPEED) INC
+                    -DIR(..\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\dht11_delay_10us.lst) OBJECT(.\Objects\dht11_d
+                    -elay_10us.obj)
+
+line level    source
+
+   1          #include "hrtos_hal.h"
+   2          
+   3          /*------------------------------------------------
+   4           * DHT11约10us延时
+   5           *
+   6           * 用于DHT11数据位时序判断
+   7           *------------------------------------------------*/
+   8          void drv_dht11_delay_10us(void)
+   9          {
+  10   1          unsigned char i;
+  11   1      
+  12   1          i--;
+  13   1          i--;
+  14   1          i--;
+  15   1          i--;
+  16   1          i--;
+  17   1          i--;
+  18   1              i--;
+  19   1          i--;
+  20   1          i--;
+  21   1          i--;
+  22   1          i--;
+  23   1          i--;
+  24   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     40    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      1    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

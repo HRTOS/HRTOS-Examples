@@ -1,0 +1,144 @@
+C51 COMPILER V9.60.7.0   ULTRASONIC                                                        09/09/2026 12:57:29 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE ULTRASONIC
+OBJECT MODULE PLACED IN .\Objects\ultrasonic.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE ..\03_Sensor\ultrasonic.c LARGE OPTIMIZE(0,SPEED) BROWSE MODDP2 INCDIR(.
+                    -.\..\Inc;..\..\..\..\Kernel\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\ultrasonic.lst) OBJECT(.\Objects\ultrasonic.obj)
+
+line level    source
+
+   1          
+   2          #include "hrtos.h"
+   3          #include "hrtos_hal.h"
+   4          
+   5          /*
+   6           * =========================================================
+   7           * 超声波 + 4位数码管测距示例
+   8           * ---------------------------------------------------------
+   9           * 功能：
+  10           * 1. 初始化超声波模块
+  11           * 2. 测量超声波距离
+  12           * 3. 使用4位数码管显示距离
+  13           *
+  14           * 显示单位：
+  15           * mm
+  16           *
+  17           * 例如：
+  18           * 350mm -> 0350
+  19           * 1250mm -> 1250
+  20           *
+  21           * 超声波驱动内部已经完成：
+  22           *     多次采样
+  23           *     数据排序
+  24           *     去除最大值和最小值
+  25           *     平均值计算
+  26           *     距离换算
+  27           * =========================================================
+  28           */
+  29          
+  30          
+  31          /*------------------------------------------------
+  32           * 超声波距离
+  33           *
+  34           * 单位：mm
+  35           *------------------------------------------------*/
+  36          unsigned int ultrasonic_distance;
+  37          
+  38          
+  39          /*------------------------------------------------
+  40           * 超声波测距任务
+  41           *
+  42           * 周期读取距离
+  43           *------------------------------------------------*/
+  44          void task_ultrasonic_read(void)
+  45          {
+  46   1          while(1)
+  47   1          {
+  48   2              /* 读取超声波距离 */
+  49   2              //ultrasonic_distance = drv_ultrasonic_measure();//drv_ultrasonic_read();
+  50   2                      ultrasonic_distance = drv_ultrasonic_read();
+  51   2              /*
+  52   2               * 稍作延时后再次测量
+  53   2               */
+  54   2              os_delay(10);
+C51 COMPILER V9.60.7.0   ULTRASONIC                                                        09/09/2026 12:57:29 PAGE 2   
+
+  55   2          }
+  56   1      }
+  57          
+  58          
+  59          /*------------------------------------------------
+  60           * 数码管显示任务
+  61           *
+  62           * 显示4位距离数据
+  63           *------------------------------------------------*/
+  64          void task_seg_display(void)
+  65          {
+  66   1          unsigned int distance;
+  67   1      
+  68   1          while(1)
+  69   1          {
+  70   2              /* 获取当前距离 */
+  71   2              distance = ultrasonic_distance;
+  72   2                      //if(ultrasonic_distance==0){EA=0;while(1);}
+  73   2      
+  74   2              /*
+  75   2               * 显示距离
+  76   2               *
+  77   2               * 例如：
+  78   2               * 0350mm -> 0350
+  79   2               * 1250mm -> 1250
+  80   2               */
+  81   2              drv_seg_display(0, distance / 1000);
+  82   2              drv_seg_display(1, distance / 100 % 10);
+  83   2              drv_seg_display(2, distance / 10 % 10);
+  84   2              drv_seg_display(3, distance % 10);
+  85   2          }
+  86   1      }
+  87          
+  88          
+  89          /**
+  90           * @brief 超声波测距示例初始化
+  91           */
+  92          void hrtos_main(void)
+  93          {
+  94   1          /* 初始化超声波模块 */
+  95   1          drv_ultrasonic_init();
+  96   1      
+  97   1          /* 初始化数码管 */
+  98   1          drv_seg_init();
+  99   1      
+ 100   1          /* 创建超声波测距任务 */
+ 101   1          os_task_create(
+ 102   1              task_ultrasonic_read,
+ 103   1              2,
+ 104   1              2,
+ 105   1              4
+ 106   1          );
+ 107   1      
+ 108   1          /* 创建数码管显示任务 */
+ 109   1          os_task_create(
+ 110   1              task_seg_display,
+ 111   1              3,
+ 112   1              2,
+ 113   1              4
+ 114   1          );
+ 115   1      }
+ 116          
+C51 COMPILER V9.60.7.0   ULTRASONIC                                                        09/09/2026 12:57:29 PAGE 3   
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    189    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      4    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
